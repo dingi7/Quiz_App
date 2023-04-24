@@ -1,7 +1,8 @@
 import { Box, Checkbox, Flex, Input, CloseButton } from '@chakra-ui/react';
+import { useState } from 'react';
 
-export const Answer = ({ answer, index, onAnswerChange, onDeleteAnswer, handleAddCorrect }) => {
-    console.log(index);
+export const Answer = ({ answer, index, onAnswerChange, onDeleteAnswer, handleAddCorrect, handleRemoveCorrect }) => {
+  const [correct, setCorrect] = useState(false)
   const handleTextChange = e => {
     onAnswerChange(index, e.target.value);
   };
@@ -11,8 +12,13 @@ export const Answer = ({ answer, index, onAnswerChange, onDeleteAnswer, handleAd
   };
 
   const hadleCorrectClick = () => {
-    console.log('Clicked');
-    handleAddCorrect(index)
+    if(correct){
+      handleRemoveCorrect(index)
+      setCorrect(false)
+    }else{
+      handleAddCorrect(index)
+      setCorrect(true)
+    }
   };
 
   return (

@@ -8,26 +8,45 @@ import {
   Stack,
   Center,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { Answer } from './Answer';
+import { useEffect, useState } from 'react';
+import { Answer } from '../components/Answer';
 
 export const AddQuestion = () => {
   const [question, setQuestion] = useState('');
-  const [answers, setAnswers] = useState([{ text: '', id: 0 }]);
-  const [correctAnswer, setCorrectAnswer] = useState([])
+  const [answers, setAnswers] = useState([{ text: '', id: 0, correct: false }]);
 
-  const handleAddCorrect = (index) => {
-    setCorrectAnswer(prevCorrect => [
-        ...prevCorrect,
-        index,
-      ]);
-    console.log(correctAnswer);
-  }
+  const handleAddCorrect = index => {
+    setAnswers(prevAnswers =>
+      prevAnswers.map(answer => {
+        if (answer.id === index) {
+          return { ...answer, correct: true };
+        } else {
+          return answer;
+        }
+      })
+    );
+  };
+
+  useEffect(() => {
+    console.log(answers);
+  }, [answers]);
+
+  const handleRemoveCorrect = index => {
+    setAnswers(prevAnswers =>
+      prevAnswers.map(answer => {
+        if (answer.id === index) {
+          return { ...answer, correct: false };
+        } else {
+          return answer;
+        }
+      })
+    );
+  };
 
   const handleAddAnswer = () => {
     setAnswers(prevAnswers => [
       ...prevAnswers,
-      { text: '', id: prevAnswers.length },
+      { text: '', id: prevAnswers.length, correct: false },
     ]);
   };
 
@@ -79,6 +98,7 @@ export const AddQuestion = () => {
               onAnswerChange={handleAnswerChange}
               onDeleteAnswer={handleDeleteAnswer}
               handleAddCorrect={handleAddCorrect}
+              handleRemoveCorrect={handleRemoveCorrect}
             />
           ))}
           <Divider />

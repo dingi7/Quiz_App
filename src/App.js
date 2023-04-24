@@ -10,9 +10,9 @@ import {
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { WelcomePage } from './components/Welcome';
-import { QuizBox } from './components/QuizBoxT';
-import { AddQuestion } from './components/AddQuestion';
+import { WelcomePage } from './Pages/Welcome';
+import { QuizBox } from './Pages/Quiz';
+import { AddQuestion } from './Pages/AddQuestions';
 
 function App() {
   const navigate = useNavigate();
