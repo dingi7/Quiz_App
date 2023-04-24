@@ -21,7 +21,7 @@ export const Answer = ({ answer, index, onAnswerChange, onDeleteAnswer, handleAd
       <Box ml="3">
         <Input
           textAlign="center"
-          placeholder="Enter answer"
+          placeholder="Въведете отговор"
           value={answer.text}
           onChange={handleTextChange}
         />

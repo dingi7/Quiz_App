@@ -16,15 +16,15 @@ export const WelcomePage = () => {
   return (
     <Center h="80vh">
       <Flex flexDirection="column" alignItems="center" gap={6}>
-        <Heading>Welcome!</Heading>
+        <Heading>Здравейте!</Heading>
         <Box>
           <Button onClick={handleQuizStart} w="200px" justifySelf="center">
-            Start Quiz
+            Започнете Игра
           </Button>
         </Box>
         <Box>
           <Button onClick={handleAddQuestions} w="200px" justifySelf="center">
-            Add Quiz Questions
+            Добавете Въпроси
           </Button>
         </Box>
       </Flex>

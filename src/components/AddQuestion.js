@@ -62,11 +62,11 @@ export const AddQuestion = () => {
         w={['100%', '80%', '50%', '30%']}
         textAlign="center"
       >
-        <Heading margin="5">Add new question</Heading>
+        <Heading margin="5">Добави нов въпрос</Heading>
         <Divider />
         <Stack gap="4" margin="5" alignItems="left">
           <Input
-            placeholder="Enter question"
+            placeholder="Въведете въпроса"
             value={question}
             onChange={e => setQuestion(e.target.value)}
           />
@@ -84,10 +84,10 @@ export const AddQuestion = () => {
           <Divider />
           <Flex alignItems="center" justifyContent="space-between">
             <Button justifySelf="flex-start" onClick={handleAddAnswer}>
-              Add answer
+              Добави въпрос
             </Button>
             <Button justifySelf="flex-end" onClick={handleSubmit}>
-              Add
+              Добави
             </Button>
           </Flex>
         </Stack>

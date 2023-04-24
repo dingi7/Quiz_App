@@ -22,7 +22,7 @@ function App() {
       <ChakraProvider theme={theme}>
         <Grid w="100%">
           <Flex justifyContent="space-between">
-            <Tooltip label="Go back" aria-label="A tooltip">
+            <Tooltip label="Върни се назад" aria-label="A tooltip">
               <CloseButton onClick={() => navigate("/")} />
             </Tooltip>
             <ColorModeSwitcher />
@@ -30,7 +30,7 @@ function App() {
           <Routes>
             <Route
               path="*"
-              element={<Heading justifySelf="center"> PAGE NOT FOUND</Heading>}
+              element={<Heading justifySelf="center"> Страницата не е намерена</Heading>}
             />
             <Route path="/" element={<WelcomePage />} />
             <Route path="/quiz" element={<QuizBox />} />
