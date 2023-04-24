@@ -1,26 +1,43 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ChakraProvider, Grid, Heading, theme } from '@chakra-ui/react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import {
+  ChakraProvider,
+  CloseButton,
+  Flex,
+  Grid,
+  Heading,
+  Tooltip,
+  theme,
+} from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { WelcomePage } from './components/Welcome';
 import { QuizBox } from './components/QuizBoxT';
 import { AddQuestion } from './components/AddQuestion';
 
 function App() {
+  const navigate = useNavigate();
+
   return (
-    <BrowserRouter>
+    
       <ChakraProvider theme={theme}>
         <Grid w="100%">
-          <ColorModeSwitcher justifySelf="flex-end" />
+          <Flex justifyContent="space-between">
+            <Tooltip label="Go back" aria-label="A tooltip">
+              <CloseButton onClick={() => navigate("/")} />
+            </Tooltip>
+            <ColorModeSwitcher />
+          </Flex>
           <Routes>
-            <Route path="*" element={<Heading justifySelf="center"> PAGE NOT FOUND</Heading>} />
-            <Route path="/" element={<WelcomePage/>} />
-            <Route path="/quiz" element={<QuizBox/>}/>
-            <Route path="/add" element={<AddQuestion/>}/>
+            <Route
+              path="*"
+              element={<Heading justifySelf="center"> PAGE NOT FOUND</Heading>}
+            />
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/quiz" element={<QuizBox />} />
+            <Route path="/add" element={<AddQuestion />} />
           </Routes>
         </Grid>
       </ChakraProvider>
-    </BrowserRouter>
   );
 }
 
