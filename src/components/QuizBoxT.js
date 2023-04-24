@@ -5,9 +5,9 @@ export const QuizBox = () => {
     const [value, setValue] = useState('1')
     return (
         <Center h="70vh">
-        <Box justifySelf="center" borderWidth='1px' borderRadius='lg' overflow='hidden' w="15%" textAlign="center">
+        <Box justifySelf="center" borderWidth='1px' borderRadius='lg' overflow='hidden' w={["90%", "70%", "50%", "30%"]} textAlign="center">
             <Progress value="50"/>
-            <Stack justifySelf="center">
+            <Stack justifySelf="center" direction="column">
                 <Text marginTop="2" justifySelf="center">Q1: The largest ocean in the world is</Text>
                 <Divider/>
                 <RadioGroup onChange={setValue} value={value} name="quiz-answer">
