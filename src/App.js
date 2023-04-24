@@ -4,6 +4,7 @@ import { ChakraProvider, Grid, Heading, theme } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { WelcomePage } from './components/Welcome';
 import { QuizBox } from './components/QuizBoxT';
+import { AddQuestion } from './components/AddQuestion';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="*" element={<Heading justifySelf="center"> PAGE NOT FOUND</Heading>} />
             <Route path="/" element={<WelcomePage/>} />
             <Route path="/quiz" element={<QuizBox/>}/>
+            <Route path="/add" element={<AddQuestion/>}/>
           </Routes>
         </Grid>
       </ChakraProvider>

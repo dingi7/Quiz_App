@@ -1,10 +1,10 @@
 import { Button, Center, Flex, Box, Heading } from '@chakra-ui/react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 
 export const WelcomePage = () => {
+  const navigate = useNavigate()
   const handleQuizStart = e => {
     e.preventDefault();
-    const navigate = Navigate()
     navigate('/quiz')
   };
 
