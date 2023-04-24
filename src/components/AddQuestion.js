@@ -3,7 +3,6 @@ import {
   Flex,
   Input,
   Button,
-  Checkbox,
   Divider,
   Heading,
   Stack,
@@ -15,6 +14,15 @@ import { Answer } from './Answer';
 export const AddQuestion = () => {
   const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState([{ text: '', id: 0 }]);
+  const [correctAnswer, setCorrectAnswer] = useState([])
+
+  const handleAddCorrect = (index) => {
+    setCorrectAnswer(prevCorrect => [
+        ...prevCorrect,
+        index,
+      ]);
+    console.log(correctAnswer);
+  }
 
   const handleAddAnswer = () => {
     setAnswers(prevAnswers => [
@@ -70,6 +78,7 @@ export const AddQuestion = () => {
               index={answer.id}
               onAnswerChange={handleAnswerChange}
               onDeleteAnswer={handleDeleteAnswer}
+              handleAddCorrect={handleAddCorrect}
             />
           ))}
           <Divider />
