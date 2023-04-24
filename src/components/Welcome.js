@@ -8,6 +8,11 @@ export const WelcomePage = () => {
     navigate('/quiz')
   };
 
+  const handleAddQuestions = e => {
+    e.preventDefault()
+    navigate('/add')
+  }
+
   return (
     <Center h="80vh">
       <Flex flexDirection="column" alignItems="center" gap={6}>
@@ -18,7 +23,7 @@ export const WelcomePage = () => {
           </Button>
         </Box>
         <Box>
-          <Button w="200px" justifySelf="center">
+          <Button onClick={handleAddQuestions} w="200px" justifySelf="center">
             Add Quiz Questions
           </Button>
         </Box>
