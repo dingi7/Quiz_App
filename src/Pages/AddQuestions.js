@@ -48,11 +48,6 @@ export const AddQuestion = () => {
     );
   };
 
-  useEffect(() => {
-    console.log(answers);
-    console.log(chosenCategory);
-  }, [answers, chosenCategory]);
-
   const handleRemoveCorrect = index => {
     setAnswers(prevAnswers =>
       prevAnswers.map(answer => {
@@ -166,9 +161,11 @@ export const AddQuestion = () => {
           <Heading size="md">Изберете категория</Heading>
           <Select variant="filled" onChange={handleCategoryChoice}>
             {categories.map(c => (
-              <option value={c._id} key={c._id}>
-                {c.tag}
-              </option>
+              <>
+                <option value={c._id} key={c._id}>
+                  {c.tag} | {c.questionCount} Въпрос/а
+                </option>
+              </>
             ))}
           </Select>
           <Divider />

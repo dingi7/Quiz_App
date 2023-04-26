@@ -4,16 +4,15 @@ import {
   ChakraProvider,
   CloseButton,
   Flex,
-  Grid,
   Heading,
   Tooltip,
-  theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { WelcomePage } from './Pages/Welcome';
 import { QuizBox } from './Pages/Quiz';
 import { AddQuestion } from './Pages/AddQuestions';
 import { ToastContainer } from 'react-toastify';
+import { AddCategory } from './Pages/AddCategories';
 
 function App() {
   const navigate = useNavigate();
@@ -32,13 +31,20 @@ function App() {
         pauseOnHover
         theme="colored"
       />
-      <ChakraProvider theme={theme}>
-        <Grid w="100%">
-          <Flex justifyContent="space-between">
+      <ChakraProvider>
+        <Flex direction="column" h="100vh">
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            p={3}
+            margin={2}
+            borderBottom="0.5px solid"
+            borderColor="gray.200"
+          >
             <Tooltip label="Върни се назад" aria-label="A tooltip">
               <CloseButton onClick={() => navigate('/')} />
             </Tooltip>
-            <ColorModeSwitcher />
+            <ColorModeSwitcher/>
           </Flex>
           <Routes>
             <Route
@@ -53,8 +59,9 @@ function App() {
             <Route path="/" element={<WelcomePage />} />
             <Route path="/quiz" element={<QuizBox />} />
             <Route path="/add" element={<AddQuestion />} />
+            <Route path="/addCategory" element={<AddCategory />} />
           </Routes>
-        </Grid>
+        </Flex>
       </ChakraProvider>
     </>
   );
