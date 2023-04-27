@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import {
   ChakraProvider,
@@ -13,9 +13,21 @@ import { QuizBox } from './Pages/Quiz';
 import { AddQuestion } from './Pages/AddQuestions';
 import { ToastContainer } from 'react-toastify';
 import { AddCategory } from './Pages/AddCategories';
+import { SelectCategory } from './Pages/SelectCategory';
+
+
+//Contexts
+import { QuestionsContext } from './contexts/QuestionsContext';
+
 
 function App() {
   const navigate = useNavigate();
+
+  const [questions, setQuestions] = useState()
+  const questionsContextValues = {
+    questions,
+    setQuestions
+  }
 
   return (
     <>
@@ -57,9 +69,14 @@ function App() {
               }
             />
             <Route path="/" element={<WelcomePage />} />
-            <Route path="/quiz" element={<QuizBox />} />
             <Route path="/add" element={<AddQuestion />} />
             <Route path="/addCategory" element={<AddCategory />} />
+
+            <QuestionsContext.Provider value={questionsContextValues}>
+              <Route path="/selectCategory" element={<SelectCategory />} />
+              <Route path="/quiz" element={<QuizBox />} />
+            </QuestionsContext.Provider>
+
           </Routes>
         </Flex>
       </ChakraProvider>
