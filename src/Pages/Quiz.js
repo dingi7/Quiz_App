@@ -1,8 +1,12 @@
 import { Box, Button, Center, Divider, Progress, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react"
 import { useState } from "react"
 
+
+
 export const QuizBox = () => {
     const [value, setValue] = useState('1')
+
+
     return (
         <Center h="70vh">
         <Box justifySelf="center" borderWidth='1px' borderRadius='lg' overflow='hidden' w={["90%", "70%", "50%", "30%"]} textAlign="center">
