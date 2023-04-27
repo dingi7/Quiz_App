@@ -16,6 +16,10 @@ export const getQuestions = async () => {
     return api.get(endpoints.questions);
 };
 
+export const getQuestionsByCategory = async (category) => {
+    return api.get(`${endpoints.questions}/${category}`)
+}
+
 export const createQuestion = async (
     question,
     answers,

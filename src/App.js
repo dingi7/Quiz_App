@@ -23,9 +23,9 @@ import { QuestionsContext } from './contexts/QuestionsContext';
 function App() {
   const navigate = useNavigate();
 
-  const [questions, setQuestions] = useState()
+  const [category, setQuestions] = useState()
   const questionsContextValues = {
-    questions,
+    category,
     setQuestions
   }
 
@@ -58,6 +58,8 @@ function App() {
             </Tooltip>
             <ColorModeSwitcher/>
           </Flex>
+
+            <QuestionsContext.Provider value={questionsContextValues}>
           <Routes>
             <Route
               path="*"
@@ -72,12 +74,12 @@ function App() {
             <Route path="/add" element={<AddQuestion />} />
             <Route path="/addCategory" element={<AddCategory />} />
 
-            <QuestionsContext.Provider value={questionsContextValues}>
               <Route path="/selectCategory" element={<SelectCategory />} />
               <Route path="/quiz" element={<QuizBox />} />
-            </QuestionsContext.Provider>
 
           </Routes>
+            </QuestionsContext.Provider>
+
         </Flex>
       </ChakraProvider>
     </>

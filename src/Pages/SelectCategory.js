@@ -1,12 +1,20 @@
 import { Box, Button, Center, Divider, Select, Stack, Text } from "@chakra-ui/react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 
-import { getCategories } from "../services/requests"
+import { useNavigate  } from 'react-router-dom';
+
+import { getCategories, getQuestionsByCategory } from "../services/requests"
+
+//contexts
+import { QuestionsContext } from "../contexts/QuestionsContext"
 
 export const SelectCategory = () => {
 
     const [categories, setCategories] = useState([]);
     const [chosenCategory, setChosenCategory] = useState('');
+
+    const {setQuestions} = useContext(QuestionsContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const setInitialCategories = async () => {
@@ -23,8 +31,13 @@ export const SelectCategory = () => {
         setChosenCategory(value);
       };
 
-      const handleSubmit = () =>{
-        
+      const handleSubmit = async (e) =>{
+        e.preventDefault()
+
+
+        setQuestions(chosenCategory)
+
+        navigate("/quiz")
       }
 
     return (
@@ -47,7 +60,7 @@ export const SelectCategory = () => {
 
                 <Divider/>
                 <Stack marginLeft="5" direction="row" >
-                    <Button marginLeft="5" marginRight ="5" marginBottom="2" w="100%">Начало</Button>
+                    <Button onClick={handleSubmit} marginLeft="5" marginRight ="5" marginBottom="2" w="100%" >Начало</Button>
                 </Stack>
             </Stack>
         </Box>
