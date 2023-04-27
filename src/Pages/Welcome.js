@@ -5,7 +5,7 @@ export const WelcomePage = () => {
   const navigate = useNavigate()
   const handleQuizStart = e => {
     e.preventDefault();
-    navigate('/quiz')
+    navigate('/selectCategory')
   };
 
   const handleAddQuestions = e => {
