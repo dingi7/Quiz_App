@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 
 //Contexts
 import { QuestionsContext } from "../contexts/QuestionsContext"
-import { getQuestions } from "../services/requests"
+import { getQuestionsByCategory } from "../services/requests"
 import { toast } from "react-toastify"
 
 
@@ -26,7 +26,7 @@ export const QuizBox = () => {
     const {category} = useContext(QuestionsContext)
 
     useEffect(() =>{
-        getQuestions(category)
+        getQuestionsByCategory(category)
         .then(data => {
             setQuestions(data)
             console.log(data)
