@@ -19,33 +19,16 @@ import { Result } from './Pages/Result';
 
 //Contexts
 import { QuestionsContext } from './contexts/QuestionsContext';
-import { ResultContext } from './contexts/ResultContext';
 
 
 function App() {
   const navigate = useNavigate();
 
-
-  //Cotext values
-
-  const [correctAnswers, setCorrectAnswers] = useState(0)
-  const [totalAnswers, setTotalAnswers] = useState(0)
-
   const [category, setQuestions] = useState()
   const questionsContextValues = {
     category,
     setQuestions,
-    
   }
-
-  const resultContextValues = {
-    correctAnswers,
-    setCorrectAnswers,
-    totalAnswers,
-    setTotalAnswers
-  }
-
-  //
 
   return (
     <>
@@ -76,8 +59,6 @@ function App() {
             </Tooltip>
             <ColorModeSwitcher/>
           </Flex>
-
-            <ResultContext.Provider value = {resultContextValues}>
             <QuestionsContext.Provider value={questionsContextValues}>
           <Routes>
             <Route
@@ -98,7 +79,6 @@ function App() {
               <Route path="/result" element={<Result />} />
           </Routes>
             </QuestionsContext.Provider>
-            </ResultContext.Provider>
 
         </Flex>
       </ChakraProvider>
