@@ -14,21 +14,19 @@ import { AddQuestion } from './Pages/AddQuestions';
 import { ToastContainer } from 'react-toastify';
 import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
-import { Result } from './Pages/Result';
-
+import { Results } from './components/Results';
 
 //Contexts
 import { QuestionsContext } from './contexts/QuestionsContext';
 
-
 function App() {
   const navigate = useNavigate();
 
-  const [category, setQuestions] = useState()
+  const [category, setQuestions] = useState();
   const questionsContextValues = {
     category,
     setQuestions,
-  }
+  };
 
   return (
     <>
@@ -57,29 +55,26 @@ function App() {
             <Tooltip label="Върни се назад" aria-label="A tooltip">
               <CloseButton onClick={() => navigate('/')} />
             </Tooltip>
-            <ColorModeSwitcher/>
+            <ColorModeSwitcher />
           </Flex>
-            <QuestionsContext.Provider value={questionsContextValues}>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <Heading justifySelf="center">
-                  {' '}
-                  Страницата не е намерена
-                </Heading>
-              }
-            />
-            <Route path="/" element={<WelcomePage />} />
-            <Route path="/add" element={<AddQuestion />} />
-            <Route path="/addCategory" element={<AddCategory />} />
-
+          <QuestionsContext.Provider value={questionsContextValues}>
+            <Routes>
+              <Route
+                path="*"
+                element={
+                  <Heading justifySelf="center">
+                    {' '}
+                    Страницата не е намерена
+                  </Heading>
+                }
+              />
+              <Route path="/" element={<WelcomePage />} />
+              <Route path="/add" element={<AddQuestion />} />
+              <Route path="/addCategory" element={<AddCategory />} />
               <Route path="/selectCategory" element={<SelectCategory />} />
               <Route path="/quiz/:id" element={<QuizBox />} />
-              <Route path="/result" element={<Result />} />
-          </Routes>
-            </QuestionsContext.Provider>
-
+            </Routes>
+          </QuestionsContext.Provider>
         </Flex>
       </ChakraProvider>
     </>

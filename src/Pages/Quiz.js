@@ -11,15 +11,18 @@ import {
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 
 //services
 import { getQuestionsByCategory } from '../services/requests';
+import { Results } from '../components/Results';
 
 export const QuizBox = () => {
   const { id } = useParams();
 
-  const navigate = useNavigate();
+
+  const [isTestFinished, setIsTestFinished] = useState(false);
+  // let isTestFinished = false
 
   const [questions, setQuestions] = useState([
     {
@@ -36,9 +39,9 @@ export const QuizBox = () => {
   const [currentAnswer, setCurrentAnswer] = useState();
   const [answers, setAnswers] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [incorrectAnswers, setIncorrectAnswers] = useState(0);
 
   useEffect(() => {
-    // reset the result states when the component mounts
     setCorrectAnswers(0);
 
     getQuestionsByCategory(id).then(data => {
@@ -51,28 +54,22 @@ export const QuizBox = () => {
   }, [id, setCorrectAnswers]);
 
   const handleNextQuestions = () => {
-    setCurrentQuestion(currentQuestion + 1);
-    setAnswers(state => [...state, parseInt(currentAnswer)]);
-    setValue('');
-    if(currentQuestion === questions.length - 1){
-      handleTestFinish()
+    if (currentQuestion === questions.length - 1) {
+      handleTestFinish();
+    } else {
+      setCurrentQuestion(currentQuestion + 1);
+      setAnswers(state => [...state, parseInt(currentAnswer)]);
+      setValue('');
     }
   };
 
-  useEffect(() => {
-    console.log(correctAnswers);
-  }, [correctAnswers]);
-
   const handleTestFinish = () => {
-    questions.forEach((q, i) => {
-      if (parseInt(q.correctAnswer) === answers[i]) {
-        console.log(parseInt(q.correctAnswer) + " || " + answers[i]);
-        setCorrectAnswers(state => state + 1);
-      }
-    });
-
-    alert('Завършихте теста');
-
+    const numCorrectAnswers = questions.filter(
+      (q, i) => parseInt(q.correctAnswer) === answers[i]
+    ).length;
+    setCorrectAnswers(numCorrectAnswers);
+    setIncorrectAnswers(questions.length - numCorrectAnswers);
+    setIsTestFinished(true);
   };
 
   const onAnswerChange = e => {
@@ -87,60 +84,70 @@ export const QuizBox = () => {
   }
 
   return (
-    <Center h="70vh">
-      <Box
-        justifySelf="center"
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        w={['90%', '70%', '50%', '30%']}
-        textAlign="center"
-      >
-        <Progress value={(currentQuestion / questions.length) * 100} />
-        <Stack justifySelf="center" direction="column">
-          <Text marginTop="2" justifySelf="center">
-            {currentQuestionData.question}
-          </Text>
-          <Divider />
-          <RadioGroup onChange={setValue} value={value} name="quiz-answer">
-            <Stack marginLeft="5" justifyContent="center">
-              {currentQuestionData.answers.map((answer, index) => (
-                <Radio
-                  key={answer.id}
-                  value={`${index}`}
-                  onChange={onAnswerChange}
-                >
-                  {answer.text}
-                </Radio>
-              ))}
+    <>
+      {isTestFinished ? (
+        <Results
+          correctAnswers={correctAnswers}
+          incorrectAnswers={incorrectAnswers}
+          totalAnswers={questions.length}
+        />
+      ) : (
+        <Center h="70vh">
+          <Box
+            justifySelf="center"
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
+            w={['90%', '70%', '50%', '30%']}
+            textAlign="center"
+          >
+            <Progress value={(currentQuestion / questions.length) * 100} />
+            <Stack justifySelf="center" direction="column">
+              <Text marginTop="2" justifySelf="center">
+                {currentQuestionData.question}
+              </Text>
+              <Divider />
+              <RadioGroup onChange={setValue} value={value} name="quiz-answer">
+                <Stack marginLeft="5" justifyContent="center">
+                  {currentQuestionData.answers.map((answer, index) => (
+                    <Radio
+                      key={answer.id}
+                      value={`${index}`}
+                      onChange={onAnswerChange}
+                    >
+                      {answer.text}
+                    </Radio>
+                  ))}
+                </Stack>
+              </RadioGroup>
+              <Divider />
+              <Stack marginLeft="5" direction="row">
+                {currentQuestion === questions.length - 1 ? (
+                  <Button
+                    onClick={handleNextQuestions}
+                    marginLeft="5"
+                    marginRight="5"
+                    marginBottom="2"
+                    w="100%"
+                  >
+                    Завърши теста
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleNextQuestions}
+                    marginLeft="5"
+                    marginRight="5"
+                    marginBottom="2"
+                    w="100%"
+                  >
+                    Нататък
+                  </Button>
+                )}
+              </Stack>
             </Stack>
-          </RadioGroup>
-          <Divider />
-          <Stack marginLeft="5" direction="row">
-            {currentQuestion === questions.length - 1 ? (
-              <Button
-                onClick={handleNextQuestions}
-                marginLeft="5"
-                marginRight="5"
-                marginBottom="2"
-                w="100%"
-              >
-                Завърши теста
-              </Button>
-            ) : (
-              <Button
-                onClick={handleNextQuestions}
-                marginLeft="5"
-                marginRight="5"
-                marginBottom="2"
-                w="100%"
-              >
-                Нататък
-              </Button>
-            )}
-          </Stack>
-        </Stack>
-      </Box>
-    </Center>
+          </Box>
+        </Center>
+      )}
+    </>
   );
 };
