@@ -5,8 +5,11 @@ import { useNavigate } from "react-router-dom"
 
 //Contexts
 import { QuestionsContext } from "../contexts/QuestionsContext"
+import { ResultContext } from "../contexts/ResultContext"
+
+
+//services
 import { getQuestionsByCategory } from "../services/requests"
-import { toast } from "react-toastify"
 
 
 export const QuizBox = () => {
@@ -24,6 +27,7 @@ export const QuizBox = () => {
 
 
     const {category} = useContext(QuestionsContext)
+    const {correctAnswers,setCorrectAnswers, totalAnswers, setTotalAnswers } = useContext(ResultContext)
 
     useEffect(() =>{
         getQuestionsByCategory(category)
@@ -42,6 +46,14 @@ export const QuizBox = () => {
     const handleTestFinish = () =>{
         alert("Завършихте теста")
         navigate("/")
+    }
+
+    const handleCurrentQuestion = () =>{
+      
+      
+
+
+      handleNextQuestions()
     }
 
 
@@ -90,7 +102,7 @@ export const QuizBox = () => {
                   {currentQuestion === questions.length - 1 ?
                     (<Button onClick={handleTestFinish} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Край</Button>)
                    : 
-                   (<Button onClick={handleNextQuestions} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Нататък</Button>)
+                   (<Button onClick={handleCurrentQuestion} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Нататък</Button>)
                    }
               </Stack>
             </Stack>
