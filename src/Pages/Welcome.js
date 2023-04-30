@@ -13,6 +13,11 @@ export const WelcomePage = () => {
     navigate('/add')
   }
 
+  const handleAddCategory = e =>{
+    e.preventDefault()
+    navigate("/addCategory")
+  }
+
   return (
     <Center h="80vh">
       <Flex flexDirection="column" alignItems="center" gap={6}>
@@ -25,6 +30,11 @@ export const WelcomePage = () => {
         <Box>
           <Button onClick={handleAddQuestions} w="200px" justifySelf="center">
             Добавете Въпроси
+          </Button>
+        </Box>
+        <Box>
+          <Button onClick={handleAddCategory} w="200px" justifySelf="center">
+            Добавете категория
           </Button>
         </Box>
       </Flex>
