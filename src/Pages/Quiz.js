@@ -20,9 +20,7 @@ import { Results } from '../components/Results';
 export const QuizBox = () => {
   const { id } = useParams();
 
-
   const [isTestFinished, setIsTestFinished] = useState(false);
-  // let isTestFinished = false
 
   const [questions, setQuestions] = useState([
     {
@@ -33,9 +31,7 @@ export const QuizBox = () => {
   ]);
 
   const [value, setValue] = useState();
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
-
   const [currentAnswer, setCurrentAnswer] = useState();
   const [answers, setAnswers] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState(0);

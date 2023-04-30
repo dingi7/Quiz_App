@@ -34,7 +34,7 @@ export const WelcomePage = () => {
         </Box>
         <Box>
           <Button onClick={handleAddCategory} w="200px" justifySelf="center">
-            Добавете категория
+            Добавете Категория
           </Button>
         </Box>
       </Flex>
