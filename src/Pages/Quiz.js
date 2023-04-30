@@ -106,7 +106,6 @@ export const QuizBox = () => {
             <Stack marginLeft="5" justifyContent="center">
               {currentQuestionData.answers.map((answer, index) => (
                 <Radio
-                  // change key
                   key={answer.id}
                   value={`${index}`}
                   onChange={onAnswerChange}
