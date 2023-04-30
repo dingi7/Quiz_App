@@ -94,7 +94,7 @@ function App() {
             <Route path="/addCategory" element={<AddCategory />} />
 
               <Route path="/selectCategory" element={<SelectCategory />} />
-              <Route path="/quiz" element={<QuizBox />} />
+              <Route path="/quiz/:id" element={<QuizBox />} />
               <Route path="/result" element={<Result />} />
           </Routes>
             </QuestionsContext.Provider>

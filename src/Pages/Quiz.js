@@ -1,126 +1,162 @@
-import { Box, Button, Center, Divider, Progress, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react"
-import { useState, useContext, useEffect } from "react"
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  Progress,
+  Radio,
+  RadioGroup,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
+import { useState, useContext, useEffect } from 'react';
 
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from 'react-router-dom';
 
 //Contexts
-import { QuestionsContext } from "../contexts/QuestionsContext"
-import { ResultContext } from "../contexts/ResultContext"
-
+// import { QuestionsContext } from "../contexts/QuestionsContext"
+import { ResultContext } from '../contexts/ResultContext';
 
 //services
-import { getQuestionsByCategory } from "../services/requests"
-
+import { getQuestionsByCategory } from '../services/requests';
 
 export const QuizBox = () => {
+  const { id } = useParams();
 
-    const navigate = useNavigate()
-    
-    const [questions, setQuestions] = useState([{
-            question: '',
-            answers: [],
-            correctAnswer: [],
-    }])
+  const navigate = useNavigate();
 
-    const [value, setValue] = useState('1')
+  const [questions, setQuestions] = useState([
+    {
+      question: '',
+      answers: [],
+      correctAnswer: [],
+    },
+  ]);
 
-    const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [value, setValue] = useState('1');
 
-    const [currentAnswer, setCurrentAnswer] = useState()
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
-    const {category} = useContext(QuestionsContext)
-    const {correctAnswers,setCorrectAnswers, totalAnswers, setTotalAnswers } = useContext(ResultContext)
+  const [currentAnswer, setCurrentAnswer] = useState();
 
-    useEffect(() =>{
-        // reset the result states when the component mounts
-        setCorrectAnswers(0)
-        setTotalAnswers(0)
+  // const {category} = useContext(QuestionsContext)
+  const { correctAnswers, setCorrectAnswers, totalAnswers, setTotalAnswers } =
+    useContext(ResultContext);
 
-        getQuestionsByCategory(category)
-        .then(data => {
-            setQuestions(data)
-            console.log(data)
-        })
-    }, [])
+  useEffect(() => {
+    // reset the result states when the component mounts
+    setCorrectAnswers(0);
+    setTotalAnswers(0);
 
-    const handleNextQuestions = () =>{
-        setCurrentQuestion((currentQuestion + 1))
-    }
-
-    const handleTestFinish = () =>{
-        alert("Завършихте теста")
-
-        // reset the result states when the user finishes the quiz
-        setCorrectAnswers(0)
-        setTotalAnswers(0)
-
-        navigate("/")
-    }
-
-    const handleCurrentQuestion = () =>{
-      if (questions[currentQuestion] === undefined) {
-        return
+    getQuestionsByCategory(id).then(data => {
+      setQuestions(data);
+      console.log(data);
+      if (data.length < 1 || data[0].question === '') {
+        alert('Empty quiz!');
       }
+    });
+  }, [id, setCorrectAnswers, setTotalAnswers]);
 
-      // check if the answer is correct and update the result states
-      const selectedAnswerIndex = parseInt(currentAnswer) - 1
-      const isAnswerCorrect = questions[currentQuestion].answers[selectedAnswerIndex].correct
-      if (isAnswerCorrect) {
-        setCorrectAnswers(correctAnswers + 1)
-      }
-      setTotalAnswers(totalAnswers + 1)
+  const handleNextQuestions = () => {
+    setCurrentQuestion(currentQuestion + 1);
+  };
 
-      handleNextQuestions()
+  const handleTestFinish = () => {
+    alert('Завършихте теста');
+
+    // reset the result states when the user finishes the quiz
+    setCorrectAnswers(0);
+    setTotalAnswers(0);
+
+    // navigate("/")
+  };
+
+  const handleCurrentQuestion = () => {
+    if (questions[currentQuestion] === undefined) {
+      return;
     }
 
-    const onAnswerChange = (e) =>{
-      setCurrentAnswer(e.target.value)
+    // check if the answer is correct and update the result states
+    const selectedAnswerIndex = parseInt(currentAnswer) - 1;
+    const isAnswerCorrect =
+      questions[currentQuestion].answers[selectedAnswerIndex].correct;
+    if (isAnswerCorrect) {
+      setCorrectAnswers(correctAnswers + 1);
     }
+    setTotalAnswers(totalAnswers + 1);
 
-    if(questions[currentQuestion] == undefined){
-       navigate("/")
-    }
+    handleNextQuestions();
+  };
 
-    const currentQuestionData = questions[currentQuestion]
+  const onAnswerChange = e => {
+    setCurrentAnswer(e.target.value);
+  };
 
-    if(currentQuestionData == undefined){
-        return
-    }
+  if (questions[currentQuestion] === undefined) {
+    navigate('/');
+  }
 
-    return (
-        <Center h="70vh">
-          <Box
-            justifySelf="center"
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-            w={["90%", "70%", "50%", "30%"]}
-            textAlign="center"
-          >
-            <Progress value={currentQuestion / questions.length * 100} />
-            <Stack justifySelf="center" direction="column">
-              <Text marginTop="2" justifySelf="center">{currentQuestionData.question}</Text>
-              <Divider />
-              <RadioGroup onChange={setValue} value={value} name="quiz-answer">
+  const currentQuestionData = questions[currentQuestion];
 
-                <Stack marginLeft="5" justifyContent="center">
-                    {currentQuestionData.answers.map((answer, index) => (
-                    <Radio key={answer.id} value={`${index + 1}`} onChange={onAnswerChange}>
-                        {answer.text}
-                    </Radio>
-                    ))}
-                </Stack>
-              </RadioGroup>
-              <Divider />
-              <Stack marginLeft="5" direction="row">
-                  {currentQuestion === questions.length - 1 ?
-                    (<Button onClick={handleTestFinish} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Край</Button>)
-                   : 
-                   (<Button onClick={handleNextQuestions} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Нататък</Button>)
-                   }
-              </Stack>
+  if (currentQuestionData === undefined) {
+    return;
+  }
+
+  return (
+    <Center h="70vh">
+      <Box
+        justifySelf="center"
+        borderWidth="1px"
+        borderRadius="lg"
+        overflow="hidden"
+        w={['90%', '70%', '50%', '30%']}
+        textAlign="center"
+      >
+        <Progress value={(currentQuestion / questions.length) * 100} />
+        <Stack justifySelf="center" direction="column">
+          <Text marginTop="2" justifySelf="center">
+            {currentQuestionData.question}
+          </Text>
+          <Divider />
+          <RadioGroup onChange={setValue} value={value} name="quiz-answer">
+            <Stack marginLeft="5" justifyContent="center">
+              {currentQuestionData.answers.map((answer, index) => (
+                <Radio
+                  key={answer.id}
+                  value={`${index + 1}`}
+                  onChange={onAnswerChange}
+                >
+                  {answer.text}
+                </Radio>
+              ))}
             </Stack>
-          </Box>
-        </Center>
-      )
-}
+          </RadioGroup>
+          <Divider />
+          <Stack marginLeft="5" direction="row">
+            {currentQuestion === questions.length - 1 ? (
+              <Button
+                onClick={handleTestFinish}
+                marginLeft="5"
+                marginRight="5"
+                marginBottom="2"
+                w="100%"
+              >
+                Край
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNextQuestions}
+                marginLeft="5"
+                marginRight="5"
+                marginBottom="2"
+                w="100%"
+              >
+                Нататък
+              </Button>
+            )}
+          </Stack>
+        </Stack>
+      </Box>
+    </Center>
+  );
+};

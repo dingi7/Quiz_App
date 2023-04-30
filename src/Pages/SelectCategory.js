@@ -1,19 +1,19 @@
-import { Box, Button, Center, Divider, Select, Stack, Text } from "@chakra-ui/react"
+import { Box, Button, Center, Divider, Heading, Select, Stack } from "@chakra-ui/react"
 import { useState, useEffect, useContext } from "react"
 
 import { useNavigate  } from 'react-router-dom';
 
-import { getCategories, getQuestionsByCategory } from "../services/requests"
+import { getCategories } from "../services/requests"
 
 //contexts
-import { QuestionsContext } from "../contexts/QuestionsContext"
+// import { QuestionsContext } from "../contexts/QuestionsContext"
 
 export const SelectCategory = () => {
 
     const [categories, setCategories] = useState([]);
     const [chosenCategory, setChosenCategory] = useState('');
 
-    const {setQuestions} = useContext(QuestionsContext)
+    // const {setQuestions, category} = useContext(QuestionsContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -34,18 +34,17 @@ export const SelectCategory = () => {
       const handleSubmit = async (e) =>{
         e.preventDefault()
 
+        // setQuestions(chosenCategory)
+        // console.log(category);
 
-        setQuestions(chosenCategory)
-
-        navigate("/quiz")
+        navigate("/quiz/" + chosenCategory)
       }
 
     return (
         <Center h="70vh">
         <Box justifySelf="center" borderWidth='1px' borderRadius='lg' overflow='hidden' w={["90%", "70%", "50%", "30%"]} textAlign="center">
-           
-            <Stack justifySelf="center" direction="column">
-                <Text marginTop="2" justifySelf="center">Избери категория:</Text>
+            <Stack justifySelf="center" direction="column" gap="4" margin="5">
+                <Heading marginTop="2" justifySelf="center">Избери категория:</Heading>
                 <Divider/>
 
                 <Select variant="filled" onChange={handleCategoryChoice}>

@@ -8,7 +8,7 @@ import {
   Input,
   Select,
   Stack,
-  useToast
+  useToast,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { createCategory, getCategories } from '../services/requests';
@@ -38,8 +38,8 @@ export const AddCategory = () => {
 
   const handleAddCategory = async () => {
     const newCategory = await createCategory(category);
-    setCategories(state => [...state, newCategory])
-    successNotification('Успешно добавена категория')
+    setCategories(state => [...state, newCategory]);
+    successNotification('Успешно добавена категория');
   };
 
   return (
@@ -71,10 +71,9 @@ export const AddCategory = () => {
           />
           <Divider />
           <Flex alignItems="center" justifyContent="space-between">
-            <Button justifySelf="flex-start" onClick={handleAddCategory}>
-              Добави въпрос
+            <Button justifySelf="flex-end" onClick={handleAddCategory}>
+              Запази
             </Button>
-            <Button justifySelf="flex-end">Запази</Button>
           </Flex>
         </Stack>
       </Box>
