@@ -19,17 +19,23 @@ export const QuizBox = () => {
     const [questions, setQuestions] = useState([{
             question: '',
             answers: [],
+            correctAnswer: [],
     }])
 
     const [value, setValue] = useState('1')
 
     const [currentQuestion, setCurrentQuestion] = useState(0)
 
+    const [currentAnswer, setCurrentAnswer] = useState()
 
     const {category} = useContext(QuestionsContext)
     const {correctAnswers,setCorrectAnswers, totalAnswers, setTotalAnswers } = useContext(ResultContext)
 
     useEffect(() =>{
+        // reset the result states when the component mounts
+        setCorrectAnswers(0)
+        setTotalAnswers(0)
+
         getQuestionsByCategory(category)
         .then(data => {
             setQuestions(data)
@@ -37,35 +43,43 @@ export const QuizBox = () => {
         })
     }, [])
 
-
-
     const handleNextQuestions = () =>{
         setCurrentQuestion((currentQuestion + 1))
     }
 
     const handleTestFinish = () =>{
         alert("Завършихте теста")
+
+        // reset the result states when the user finishes the quiz
+        setCorrectAnswers(0)
+        setTotalAnswers(0)
+
         navigate("/")
     }
 
     const handleCurrentQuestion = () =>{
-      
-      
+      if (questions[currentQuestion] === undefined) {
+        return
+      }
 
+      // check if the answer is correct and update the result states
+      const selectedAnswerIndex = parseInt(currentAnswer) - 1
+      const isAnswerCorrect = questions[currentQuestion].answers[selectedAnswerIndex].correct
+      if (isAnswerCorrect) {
+        setCorrectAnswers(correctAnswers + 1)
+      }
+      setTotalAnswers(totalAnswers + 1)
 
       handleNextQuestions()
     }
 
+    const onAnswerChange = (e) =>{
+      setCurrentAnswer(e.target.value)
+    }
 
-      
-
-
-    
-        if(questions[currentQuestion] == undefined){
-           navigate("/")
-        }
-    
-    
+    if(questions[currentQuestion] == undefined){
+       navigate("/")
+    }
 
     const currentQuestionData = questions[currentQuestion]
 
@@ -91,7 +105,7 @@ export const QuizBox = () => {
 
                 <Stack marginLeft="5" justifyContent="center">
                     {currentQuestionData.answers.map((answer, index) => (
-                    <Radio key={answer.id} value={`${index + 1}`}>
+                    <Radio key={answer.id} value={`${index + 1}`} onChange={onAnswerChange}>
                         {answer.text}
                     </Radio>
                     ))}
@@ -102,7 +116,7 @@ export const QuizBox = () => {
                   {currentQuestion === questions.length - 1 ?
                     (<Button onClick={handleTestFinish} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Край</Button>)
                    : 
-                   (<Button onClick={handleCurrentQuestion} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Нататък</Button>)
+                   (<Button onClick={handleNextQuestions} marginLeft="5" marginRight="5" marginBottom="2" w="100%">Нататък</Button>)
                    }
               </Stack>
             </Stack>
