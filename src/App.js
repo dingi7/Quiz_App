@@ -14,7 +14,6 @@ import { AddQuestion } from './Pages/AddQuestions';
 import { ToastContainer } from 'react-toastify';
 import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
-import { Results } from './components/Results';
 
 //Contexts
 import { QuestionsContext } from './contexts/QuestionsContext';
