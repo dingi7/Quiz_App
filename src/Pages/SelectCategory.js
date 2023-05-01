@@ -16,6 +16,7 @@ import { getCategories } from '../services/requests';
 export const SelectCategory = () => {
   const [categories, setCategories] = useState([]);
   const [chosenCategory, setChosenCategory] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -28,6 +29,7 @@ export const SelectCategory = () => {
       }
     };
     setInitialCategories();
+    setLoading(false)
   }, []);
 
   const handleCategoryChoice = ({ target: { value } }) => {
@@ -55,11 +57,15 @@ export const SelectCategory = () => {
           <Divider />
 
           <Select variant="filled" onChange={handleCategoryChoice}>
-            {categories.map(c => (
-              <option value={c._id} key={c._id}>
-                {c.tag} | {c.questionCount} Въпрос/а
-              </option>
-            ))}
+            {loading ? (
+              <option value={0} key={0}>Loading...</option>
+            ) : (
+              categories.map(c => (
+                <option value={c._id} key={c._id}>
+                  {c.tag} | {c.questionCount} Въпрос/а
+                </option>
+              ))
+            )}
           </Select>
 
           <Divider />
