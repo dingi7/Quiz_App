@@ -75,6 +75,11 @@ function App() {
             </Routes>
           </QuestionsContext.Provider>
         </Flex>
+
+        <footer>
+          <p>All rights reserverd &copy; 2023 K.Kanev, M.Draganov, S.Todorov</p>
+        </footer>
+
       </ChakraProvider>
     </>
   );
