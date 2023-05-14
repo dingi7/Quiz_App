@@ -11,7 +11,6 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { WelcomePage } from './Pages/Welcome';
 import { QuizBox } from './Pages/Quiz';
 import { AddQuestion } from './Pages/AddQuestions';
-import { ToastContainer } from 'react-toastify';
 import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
 
@@ -29,20 +28,9 @@ function App() {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+
       <ChakraProvider>
-        <Flex direction="column" h="100vh">
+        <Flex direction="column" h="100vh" w="100%">
           <Flex
             justifyContent="space-between"
             alignItems="center"
@@ -74,12 +62,12 @@ function App() {
               <Route path="/quiz/:id" element={<QuizBox />} />
             </Routes>
           </QuestionsContext.Provider>
+          <footer style={{ position: 'absolute', bottom: 5, right: 10 }}>
+            <p>
+              &copy; 2023 - K.Kanev, M.Draganov, S.Todorov - All rights reserved
+            </p>
+          </footer>
         </Flex>
-
-        <footer>
-          <p>All rights reserverd &copy; 2023 K.Kanev, M.Draganov, S.Todorov</p>
-        </footer>
-
       </ChakraProvider>
     </>
   );
