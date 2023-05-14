@@ -13,18 +13,20 @@ import { QuizBox } from './Pages/Quiz';
 import { AddQuestion } from './Pages/AddQuestions';
 import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
+import { Login } from './Pages/Login';
+import { Register } from './Pages/Register';
 
 //Contexts
-import { QuestionsContext } from './contexts/QuestionsContext';
+// import { QuestionsContext } from './contexts/QuestionsContext';
 
 function App() {
   const navigate = useNavigate();
 
-  const [category, setQuestions] = useState();
-  const questionsContextValues = {
-    category,
-    setQuestions,
-  };
+  // const [category, setQuestions] = useState();
+  // const questionsContextValues = {
+  //   category,
+  //   setQuestions,
+  // };
 
   return (
     <>
@@ -43,7 +45,7 @@ function App() {
             </Tooltip>
             <ColorModeSwitcher />
           </Flex>
-          <QuestionsContext.Provider value={questionsContextValues}>
+          {/* <QuestionsContext.Provider value={questionsContextValues}> */}
             <Routes>
               <Route
                 path="*"
@@ -59,8 +61,10 @@ function App() {
               <Route path="/addCategory" element={<AddCategory />} />
               <Route path="/selectCategory" element={<SelectCategory />} />
               <Route path="/quiz/:id" element={<QuizBox />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
-          </QuestionsContext.Provider>
+          {/* </QuestionsContext.Provider> */}
           <footer style={{ position: 'absolute', bottom: 5, right: 10 }}>
             <p>
               &copy; 2023 - K.Kanev, M.Draganov, S.Todorov - All rights reserved

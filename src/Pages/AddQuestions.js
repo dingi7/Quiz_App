@@ -135,7 +135,7 @@ export const AddQuestion = () => {
   };
 
   return (
-    <Center>
+    <Center h="70vh">
       <Box
         borderWidth="1px"
         borderRadius="lg"

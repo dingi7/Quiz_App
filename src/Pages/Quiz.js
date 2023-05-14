@@ -20,6 +20,8 @@ import { Results } from '../components/Results';
 export const QuizBox = () => {
   const { id } = useParams();
 
+  const [ userInfo, setUserInfo] = useState({});
+
   const [isTestFinished, setIsTestFinished] = useState(false);
 
   const [questions, setQuestions] = useState([
@@ -42,7 +44,6 @@ export const QuizBox = () => {
 
     getQuestionsByCategory(id).then(data => {
       setQuestions(data);
-      console.log(data);
       if (data.length < 1 || data[0].question === '') {
         alert('Empty quiz!');
       }
