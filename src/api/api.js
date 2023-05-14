@@ -1,4 +1,4 @@
-const host = 'https://quiz-app-34w5.onrender.com/'
+const host = 'https://quiz-app-back-end.vercel.app/'
 
 const request = async (method, url, data) => {
     const options = {
