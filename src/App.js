@@ -28,7 +28,6 @@ function App() {
 
   return (
     <>
-
       <ChakraProvider>
         <Flex direction="column" h="100vh" w="100%">
           <Flex
@@ -69,6 +68,18 @@ function App() {
           </footer>
         </Flex>
       </ChakraProvider>
+
+      <style>
+        {`
+        @media (max-width: 768px) {
+          footer {
+            position: static;
+            text-align: center;
+            margin-top: 2rem;
+          }
+        }
+      `}
+      </style>
     </>
   );
 }
