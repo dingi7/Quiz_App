@@ -20,7 +20,7 @@ import { Results } from '../components/Results';
 export const QuizBox = () => {
   const { id } = useParams();
 
-  const [ userInfo, setUserInfo] = useState({});
+  // const [ userInfo, setUserInfo] = useState({});
 
   const [isTestFinished, setIsTestFinished] = useState(false);
 

@@ -18,6 +18,15 @@ export const WelcomePage = () => {
     navigate("/addCategory")
   }
 
+  const handleProfile = e =>{
+    e.preventDefault()
+    if(true){
+      navigate("/login")
+    }else{
+      navigate("/register")
+    }
+  }
+
   return (
     <Center h="80vh">
       <Flex flexDirection="column" alignItems="center" gap={6}>
@@ -35,6 +44,11 @@ export const WelcomePage = () => {
         <Box>
           <Button onClick={handleAddCategory} w="200px" justifySelf="center">
             Добавете Категория
+          </Button>
+        </Box>
+        <Box>
+          <Button onClick={handleProfile} w="200px" justifySelf="center">
+            Вход/Регистрация
           </Button>
         </Box>
       </Flex>
