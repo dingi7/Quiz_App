@@ -110,6 +110,11 @@ export const AddQuestion = () => {
     });
   };
 
+  const clearInputs = () => {
+    setQuestion('');
+    setAnswers([{ text: '', id: 0, correct: false }])
+  }
+
   const handleSubmit = async () => {
     const correctIndexes = findCorrectIndex();
     if (!question || question.trim === '') {
@@ -126,6 +131,7 @@ export const AddQuestion = () => {
     }
     await createQuestion(question, answers, correctIndexes, chosenCategory);
     successNotification('Въпросът беше успешно добавен!');
+    clearInputs();
   };
 
   return (
@@ -146,7 +152,7 @@ export const AddQuestion = () => {
             onChange={e => setQuestion(e.target.value)}
           />
           <Divider />
-          {answers.map((answer, index) => (
+          {answers.map((answer) => (
             <Answer
               key={answer.id}
               answer={answer}

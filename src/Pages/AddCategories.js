@@ -40,6 +40,7 @@ export const AddCategory = () => {
     const newCategory = await createCategory(category);
     setCategories(state => [...state, newCategory]);
     successNotification('Успешно добавена категория');
+    setCategory('');
   };
 
   return (
