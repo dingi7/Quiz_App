@@ -55,7 +55,7 @@ function App() {
           </Routes>
           <footer
             style={{
-              position: 'fixed',
+              position: 'absolute',
               bottom: 0,
               right: 0,
               padding: '10px',
@@ -69,19 +69,6 @@ function App() {
           </footer>
         </Flex>
       </ChakraProvider>
-
-      <style>
-        {`
-        @media (max-width: 768px) {
-          footer {
-            position: relative;
-            text-align: center;
-            width: 100%;
-            margin-top: 2rem;
-          }
-        }
-      `}
-      </style>
     </>
   );
 }
