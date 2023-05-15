@@ -55,6 +55,7 @@ export const AddCategory = () => {
         <Heading margin="5">Добави нова категория</Heading>
         <Divider />
         <Stack gap="4" margin="5" alignItems="left">
+        <Heading size="md">Съществуващи категории:</Heading>
           <Select variant="filled">
             {categories.map(c => (
               <>
@@ -65,6 +66,7 @@ export const AddCategory = () => {
             ))}
           </Select>
           <Divider></Divider>
+          <Heading size="md">Създай категория:</Heading>
           <Input
             placeholder="Въведете име на категорията"
             value={category}

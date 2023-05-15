@@ -37,7 +37,17 @@ export const AuthControler = () => {
             size="md"
             marginBottom={2}
           />
-          {isLogin ? <Login credentials={credentials} setCredentials={setCredentials}></Login> : <Register credentials={credentials} setCredentials={setCredentials}></Register>}
+          {isLogin ? (
+            <Login
+              credentials={credentials}
+              setCredentials={setCredentials}
+            ></Login>
+          ) : (
+            <Register
+              credentials={credentials}
+              setCredentials={setCredentials}
+            ></Register>
+          )}
         </Box>
       </Center>
     </Box>

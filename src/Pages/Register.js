@@ -4,8 +4,6 @@ import {
   Heading,
   Input,
   Stack,
-  Text,
-  Link,
   Flex,
   Select,
 } from '@chakra-ui/react';
@@ -15,7 +13,7 @@ export const Register = ({ credentials, setCredentials }) => {
     <>
       <Divider />
       <Stack gap="4" margin="5" alignItems="left">
-        <Heading size="md">Email</Heading>
+        <Heading size="md">Имеил</Heading>
         <Input
           placeholder="Въведете email"
           value={credentials.email}
@@ -26,7 +24,7 @@ export const Register = ({ credentials, setCredentials }) => {
             }))
           }
         />
-        <Heading size="md">First name</Heading>
+        <Heading size="md">Име</Heading>
         <Input
           placeholder="Въведете име"
           value={credentials.firstName}
@@ -37,7 +35,7 @@ export const Register = ({ credentials, setCredentials }) => {
             }))
           }
         />
-        <Heading size="md">Last name</Heading>
+        <Heading size="md">Фамилия</Heading>
         <Input
           placeholder="Въведете фамилия"
           value={credentials.lastName}
@@ -81,7 +79,7 @@ export const Register = ({ credentials, setCredentials }) => {
             <option value="Е">Е</option>
           </Select>
         </Flex>
-        <Heading size="md">Password</Heading>
+        <Heading size="md">Парола</Heading>
         <Input
           type="password"
           placeholder="Въведете парола"
@@ -93,7 +91,7 @@ export const Register = ({ credentials, setCredentials }) => {
             }))
           }
         />
-        {/* <Heading size="md">Repeat Password</Heading>
+        <Heading size="md">Повтори Паролата</Heading>
             <Input
               type="password"
               placeholder="Въведете парола"
@@ -104,7 +102,7 @@ export const Register = ({ credentials, setCredentials }) => {
                   rePassword: e.target.value,
                 }))
               }
-            /> */}
+            />
         <Divider />
         <Button
           justifySelf="flex-start"
@@ -114,12 +112,6 @@ export const Register = ({ credentials, setCredentials }) => {
         >
           Регистрация
         </Button>
-        <Text textAlign="center">
-          Имаш профил?{' '}
-          <Link color="teal.500" href="/login">
-            Влез тук.
-          </Link>
-        </Text>
       </Stack>
     </>
   );

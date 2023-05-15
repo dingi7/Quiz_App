@@ -112,8 +112,8 @@ export const AddQuestion = () => {
 
   const clearInputs = () => {
     setQuestion('');
-    setAnswers([{ text: '', id: 0, correct: false }])
-  }
+    setAnswers([{ text: '', id: 0, correct: false }]);
+  };
 
   const handleSubmit = async () => {
     const correctIndexes = findCorrectIndex();
@@ -152,7 +152,7 @@ export const AddQuestion = () => {
             onChange={e => setQuestion(e.target.value)}
           />
           <Divider />
-          {answers.map((answer) => (
+          {answers.map(answer => (
             <Answer
               key={answer.id}
               answer={answer}
