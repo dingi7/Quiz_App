@@ -15,6 +15,7 @@ import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
 import { AuthControler } from './Pages/AuthControler';
 
+
 function App() {
   const navigate = useNavigate();
 
@@ -54,11 +55,12 @@ function App() {
           </Routes>
           <footer
             style={{
-              position: 'sticky',
+              position: 'fixed',
               bottom: 0,
               right: 0,
               padding: '10px',
-              marginTop: 'auto',
+              width: '100%',
+              textAlign: 'right',
             }}
           >
             <p>
@@ -67,6 +69,19 @@ function App() {
           </footer>
         </Flex>
       </ChakraProvider>
+
+      <style>
+        {`
+        @media (max-width: 768px) {
+          footer {
+            position: relative;
+            text-align: center;
+            width: 100%;
+            margin-top: 2rem;
+          }
+        }
+      `}
+      </style>
     </>
   );
 }
