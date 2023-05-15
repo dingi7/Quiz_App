@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import {
-  Button,
   ChakraProvider,
   CloseButton,
   Flex,
