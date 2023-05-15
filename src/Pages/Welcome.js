@@ -1,31 +1,27 @@
 import { Button, Center, Flex, Box, Heading } from '@chakra-ui/react';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const WelcomePage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleQuizStart = e => {
     e.preventDefault();
-    navigate('/selectCategory')
+    navigate('/selectCategory');
   };
 
   const handleAddQuestions = e => {
-    e.preventDefault()
-    navigate('/add')
-  }
+    e.preventDefault();
+    navigate('/add');
+  };
 
-  const handleAddCategory = e =>{
-    e.preventDefault()
-    navigate("/addCategory")
-  }
+  const handleAddCategory = e => {
+    e.preventDefault();
+    navigate('/addCategory');
+  };
 
-  const handleProfile = e =>{
-    e.preventDefault()
-    if(true){
-      navigate("/login")
-    }else{
-      navigate("/register")
-    }
-  }
+  const handleProfile = e => {
+    e.preventDefault();
+    navigate('/auth');
+  };
 
   return (
     <Center h="80vh">

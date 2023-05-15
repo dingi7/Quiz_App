@@ -13,25 +13,15 @@ import { QuizBox } from './Pages/Quiz';
 import { AddQuestion } from './Pages/AddQuestions';
 import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
-import { Login } from './Pages/Login';
-import { Register } from './Pages/Register';
-
-//Contexts
-// import { QuestionsContext } from './contexts/QuestionsContext';
+import { AuthControler } from './Pages/AuthControler';
 
 function App() {
   const navigate = useNavigate();
 
-  // const [category, setQuestions] = useState();
-  // const questionsContextValues = {
-  //   category,
-  //   setQuestions,
-  // };
-
   return (
     <>
       <ChakraProvider>
-        <Flex direction="column" h="100vh" w="100%">
+        <Flex direction="column" minHeight="100vh">
           <Flex
             justifyContent="space-between"
             alignItems="center"
@@ -45,45 +35,38 @@ function App() {
             </Tooltip>
             <ColorModeSwitcher />
           </Flex>
-          {/* <QuestionsContext.Provider value={questionsContextValues}> */}
-            <Routes>
-              <Route
-                path="*"
-                element={
-                  <Heading justifySelf="center">
-                    {' '}
-                    Страницата не е намерена
-                  </Heading>
-                }
-              />
-              <Route path="/" element={<WelcomePage />} />
-              <Route path="/add" element={<AddQuestion />} />
-              <Route path="/addCategory" element={<AddCategory />} />
-              <Route path="/selectCategory" element={<SelectCategory />} />
-              <Route path="/quiz/:id" element={<QuizBox />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Routes>
-          {/* </QuestionsContext.Provider> */}
-          <footer style={{ position: 'absolute', bottom: 5, right: 10 }}>
+          <Routes>
+            <Route
+              path="*"
+              element={
+                <Heading justifySelf="center">
+                  {' '}
+                  Страницата не е намерена
+                </Heading>
+              }
+            />
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/add" element={<AddQuestion />} />
+            <Route path="/addCategory" element={<AddCategory />} />
+            <Route path="/selectCategory" element={<SelectCategory />} />
+            <Route path="/quiz/:id" element={<QuizBox />} />
+            <Route path="/auth" element={<AuthControler />} />
+          </Routes>
+          <footer
+            style={{
+              position: 'sticky',
+              bottom: 0,
+              right: 0,
+              padding: '10px',
+              marginTop: 'auto',
+            }}
+          >
             <p>
               &copy; 2023 - K.Kanev, M.Draganov, S.Todorov - All rights reserved
             </p>
           </footer>
         </Flex>
       </ChakraProvider>
-
-      <style>
-        {`
-        @media (max-width: 768px) {
-          footer {
-            position: static;
-            text-align: center;
-            margin-top: 2rem;
-          }
-        }
-      `}
-      </style>
     </>
   );
 }

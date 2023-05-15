@@ -1,7 +1,5 @@
 import {
-  Box,
   Button,
-  Center,
   Divider,
   Heading,
   Input,
@@ -9,22 +7,12 @@ import {
   Text,
   Link,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
-export const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+export const Login = ({credentials, setCredentials}) => {
 
   return (
-    <Center h="70vh">
-      <Box
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        w={['100%', '80%', '50%', '30%']}
-        textAlign="center"
-      >
-        <Heading margin="5">Вход</Heading>
-        <Divider />
+    <>
+      <Divider />
         <Stack gap="4" margin="5" alignItems="left">
           <Heading size="md">Email</Heading>
           <Input placeholder="Въведете email" value={credentials.email} onChange={e => setCredentials(prevState => ({ ...prevState, email: e.target.value }))} />
@@ -41,7 +29,6 @@ export const Login = () => {
             </Link>
           </Text>
         </Stack>
-      </Box>
-    </Center>
+    </>
   );
 };
