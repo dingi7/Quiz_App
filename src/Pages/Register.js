@@ -51,7 +51,6 @@ export const Register = ({ credentials, setCredentials }) => {
           <Input
             w="70%"
             placeholder="Въведете клас"
-            type="number"
             value={credentials.grade}
             onChange={e =>
               setCredentials(prevState => ({
