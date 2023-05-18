@@ -90,7 +90,7 @@ export const QuizBox = () => {
 
   return (
     <>
-      {!isUserInfoGiven ? (<UserInfo userInfo={userInfo} setUserInfo={setUserInfo} setIsInfoGiven={setIsUserInfoGiven}></UserInfo>) : (<>
+      {!isUserInfoGiven ? (<UserInfo userInfo={userInfo} setUserInfo={setUserInfo} setIsUserInfoGiven={setIsUserInfoGiven}></UserInfo>) : (<>
         {isTestFinished ? (
           <Results
             correctAnswers={correctAnswers}
