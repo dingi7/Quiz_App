@@ -17,8 +17,7 @@ const request = async (method, url, data) => {
             throw new Error(data.message);
         }
         if (res.status === 401) {
-            localStorage.removeItem('userData');
-            window.location.pathname = '/login';
+            localStorage.removeItem('access_info');
         }
         return data;
     } catch (error) {

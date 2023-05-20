@@ -9,7 +9,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -17,8 +17,10 @@ import { useParams } from 'react-router-dom';
 import { getQuestionsByCategory } from '../services/requests';
 import { Results } from '../components/Results';
 import { UserInfo } from '../components/UserInfo';
+import { AuthContext } from '../contexts/AuthContext';
 
 export const QuizBox = () => {
+  const { accessData  } = useContext(AuthContext);
   const { id } = useParams();
 
   const [isUserInfoGiven, setIsUserInfoGiven] = useState(false)
@@ -49,15 +51,15 @@ export const QuizBox = () => {
       }
     });
 
-    if (false) {
+    if (accessData) {
       setUserInfo({
-        name: "Test",
-        grade: "",
-        class: ""
+        name: accessData.name,
+        grade: accessData.grade,
+        class: accessData.class
       })
       setIsUserInfoGiven(true)
     }
-  }, [id, setCorrectAnswers]);
+  }, [id, setCorrectAnswers, accessData]);
 
   const handleNextQuestions = () => {
     if (currentQuestion === questions.length - 1) {

@@ -1,7 +1,10 @@
 import { Button, Center, Flex, Box, Heading } from '@chakra-ui/react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 export const WelcomePage = () => {
+  const { accessData, isAuth, setAccessData } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleQuizStart = e => {
     e.preventDefault();
@@ -23,6 +26,17 @@ export const WelcomePage = () => {
     navigate('/auth');
   };
 
+  const handleLogout = e => {
+    setAccessData(null);
+    localStorage.removeItem('access_info');
+    // notif
+    navigate('/auth')
+  }
+
+  useEffect(() => {
+    console.log(accessData || "nothing yet");
+  }, [accessData])
+
   return (
     <Center h="80vh">
       <Flex flexDirection="column" alignItems="center" gap={6}>
@@ -43,9 +57,13 @@ export const WelcomePage = () => {
           </Button>
         </Box>
         <Box>
-          <Button onClick={handleProfile} w="200px" justifySelf="center">
-            Вход/Регистрация
-          </Button>
+          {isAuth ? (<Button onClick={handleLogout} w="200px" justifySelf="center">
+              Изход от профил
+            </Button>) : (
+            <Button onClick={handleProfile} w="200px" justifySelf="center">
+              Вход/Регистрация
+            </Button>
+          )}
         </Box>
       </Flex>
     </Center>

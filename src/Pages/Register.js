@@ -7,8 +7,21 @@ import {
   Flex,
   Select,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
-export const Register = ({ credentials, setCredentials }) => {
+export const Register = ({ credentials, setCredentials, handleRegister }) => {
+  useEffect(() =>{
+    setCredentials({
+      email: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      grade: '',
+      classValue: 'А',
+      rePassword: '',
+    })
+  }, [setCredentials])
+
   return (
     <>
       <Divider />
@@ -66,7 +79,7 @@ export const Register = ({ credentials, setCredentials }) => {
             onChange={e =>
               setCredentials(prevState => ({
                 ...prevState,
-                class: e.target.value,
+                classValue: e.target.value,
               }))
             }
           >
@@ -105,7 +118,7 @@ export const Register = ({ credentials, setCredentials }) => {
         <Divider />
         <Button
           justifySelf="flex-start"
-          onClick={() => {}}
+          onClick={handleRegister}
           width="100%"
           fontSize="md"
         >
