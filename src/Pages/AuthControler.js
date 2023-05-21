@@ -1,4 +1,4 @@
-import { Box, Center, Heading, Switch } from '@chakra-ui/react';
+import { Box, Center, Heading, Switch, useToast } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { Login } from './Login';
 import { Register } from './Register';
@@ -9,6 +9,18 @@ import { AuthContext } from '../contexts/AuthContext';
 
 export const AuthControler = () => {
   const { isAuth, setAccessData } = useContext(AuthContext);
+  const [ loading, setLoading] = useState(false)
+
+  const toast = useToast();
+
+  const errorNotification = text => {
+    toast({
+      title: 'Грешка!',
+      description: text,
+      status: 'error',
+      duration: 3000,
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -35,31 +47,32 @@ export const AuthControler = () => {
   };
 
   const handleRegister = async () => {
+    setLoading(true)
     try {
       const data = await register(credentials)
       setAccessData(data);
       localStorage.setItem('access_info', JSON.stringify(data));
       navigate('/')
-      console.log(data);
     } catch (err) {
       console.log(err);
-      //handle error
+      errorNotification(err.message)
     }
+    setLoading(false)
   }
 
 
   const handleLogin = async () => {
-    console.log(credentials.password);
+    setLoading(true)
     try {
-      const data = await login(credentials.email, credentials.password)
+      const data = await login({email: credentials.email, password: credentials.password})
       setAccessData(data);
       localStorage.setItem('access_info', JSON.stringify(data));
       navigate('/')
-      console.log(data);
     } catch (err) {
       console.log(err);
-      //handle error
+      errorNotification(err.message)
     }
+    setLoading(false)
   }
 
   return (
@@ -84,12 +97,14 @@ export const AuthControler = () => {
               credentials={credentials}
               setCredentials={setCredentials}
               handleLogin={handleLogin}
+              loading={loading}
             ></Login>
           ) : (
             <Register
               credentials={credentials}
               setCredentials={setCredentials}
               handleRegister={handleRegister}
+              loading={loading}
             ></Register>
           )}
         </Box>
