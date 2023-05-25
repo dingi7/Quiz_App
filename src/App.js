@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import {
   ChakraProvider,
@@ -11,38 +11,18 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { WelcomePage } from './Pages/Welcome';
 import { QuizBox } from './Pages/Quiz';
 import { AddQuestion } from './Pages/AddQuestions';
-import { ToastContainer } from 'react-toastify';
 import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
+import { AuthControler } from './Pages/AuthControler';
 
-//Contexts
-import { QuestionsContext } from './contexts/QuestionsContext';
 
 function App() {
   const navigate = useNavigate();
 
-  const [category, setQuestions] = useState();
-  const questionsContextValues = {
-    category,
-    setQuestions,
-  };
-
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
       <ChakraProvider>
-        <Flex direction="column" h="100vh">
+        <Flex direction="column" minHeight="100vh">
           <Flex
             justifyContent="space-between"
             alignItems="center"
@@ -56,30 +36,38 @@ function App() {
             </Tooltip>
             <ColorModeSwitcher />
           </Flex>
-          <QuestionsContext.Provider value={questionsContextValues}>
-            <Routes>
-              <Route
-                path="*"
-                element={
-                  <Heading justifySelf="center">
-                    {' '}
-                    Страницата не е намерена
-                  </Heading>
-                }
-              />
-              <Route path="/" element={<WelcomePage />} />
-              <Route path="/add" element={<AddQuestion />} />
-              <Route path="/addCategory" element={<AddCategory />} />
-              <Route path="/selectCategory" element={<SelectCategory />} />
-              <Route path="/quiz/:id" element={<QuizBox />} />
-            </Routes>
-          </QuestionsContext.Provider>
+          <Routes>
+            <Route
+              path="*"
+              element={
+                <Heading justifySelf="center">
+                  {' '}
+                  Страницата не е намерена
+                </Heading>
+              }
+            />
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/add" element={<AddQuestion />} />
+            <Route path="/addCategory" element={<AddCategory />} />
+            <Route path="/selectCategory" element={<SelectCategory />} />
+            <Route path="/quiz/:id" element={<QuizBox />} />
+            <Route path="/auth" element={<AuthControler />} />
+          </Routes>
+          <footer
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              padding: '10px',
+              width: '100%',
+              textAlign: 'right',
+            }}
+          >
+            <p>
+              &copy; 2023 - K.Kanev, M.Draganov, S.Todorov - All rights reserved
+            </p>
+          </footer>
         </Flex>
-
-        <footer>
-          <p>All rights reserverd &copy; 2023 K.Kanev, M.Draganov, S.Todorov</p>
-        </footer>
-
       </ChakraProvider>
     </>
   );

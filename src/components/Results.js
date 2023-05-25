@@ -74,7 +74,7 @@ export const Results = ({ correctAnswers, incorrectAnswers, totalAnswers }) => {
               padding={['1em', '0.5em']}
               onTouchStart={() => navigate('/')}
               onTouchEnd={() => navigate('/')}
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/selectCategory')}
             >
               Започни нов тест
             </Button>

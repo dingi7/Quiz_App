@@ -1,22 +1,41 @@
 import { Button, Center, Flex, Box, Heading } from '@chakra-ui/react';
-import { useNavigate  } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 export const WelcomePage = () => {
-  const navigate = useNavigate()
+  const { accessData, isAuth, setAccessData } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleQuizStart = e => {
     e.preventDefault();
-    navigate('/selectCategory')
+    navigate('/selectCategory');
   };
 
   const handleAddQuestions = e => {
-    e.preventDefault()
-    navigate('/add')
+    e.preventDefault();
+    navigate('/add');
+  };
+
+  const handleAddCategory = e => {
+    e.preventDefault();
+    navigate('/addCategory');
+  };
+
+  const handleProfile = e => {
+    e.preventDefault();
+    navigate('/auth');
+  };
+
+  const handleLogout = e => {
+    setAccessData(null);
+    localStorage.removeItem('access_info');
+    // notif
+    navigate('/auth')
   }
 
-  const handleAddCategory = e =>{
-    e.preventDefault()
-    navigate("/addCategory")
-  }
+  useEffect(() => {
+    console.log(accessData || "nothing yet");
+  }, [accessData])
 
   return (
     <Center h="80vh">
@@ -36,6 +55,15 @@ export const WelcomePage = () => {
           <Button onClick={handleAddCategory} w="200px" justifySelf="center">
             Добавете Категория
           </Button>
+        </Box>
+        <Box>
+          {isAuth ? (<Button onClick={handleLogout} w="200px" justifySelf="center">
+              Изход от профил
+            </Button>) : (
+            <Button onClick={handleProfile} w="200px" justifySelf="center">
+              Вход/Регистрация
+            </Button>
+          )}
         </Box>
       </Flex>
     </Center>

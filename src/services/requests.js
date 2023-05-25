@@ -2,6 +2,8 @@ import * as api from '../api/api';
 const endpoints = {
     categories: 'categories',
     questions: 'questions',
+    register: 'users/register',
+    login: 'users/login'
 };
 
 export const getCategories = async () => {
@@ -33,3 +35,22 @@ export const createQuestion = async (
         category,
     });
 };
+
+export const register = async ({ firstName, lastName, email, password, rePassword, grade, classValue }) => {
+    return api.post(endpoints.register, {
+        firstName,
+        lastName,
+        email,
+        password,
+        rePassword,
+        grade,
+        class: classValue
+    })
+}
+
+export const login = async ({ email, password}) => {
+    return api.post(endpoints.login, {
+        email,
+        password,
+    })
+}

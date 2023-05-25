@@ -22,7 +22,7 @@ export const Answer = ({ answer, index, onAnswerChange, onDeleteAnswer, handleAd
   };
 
   return (
-    <Flex alignItems="center">
+    <Flex alignItems="center" w = "100%">
       <Checkbox size="lg" onChange={hadleCorrectClick} />
       <Box ml="3">
         <Input
@@ -30,6 +30,7 @@ export const Answer = ({ answer, index, onAnswerChange, onDeleteAnswer, handleAd
           placeholder="Въведете отговор"
           value={answer.text}
           onChange={handleTextChange}
+          w="100%"
         />
       </Box>
 
