@@ -1,4 +1,6 @@
-const host = 'https://quiz-app-back-end.vercel.app/'
+//const host = 'https://quiz-app-back-end.vercel.app/'
+
+const host = process.env.NODE_ENV === 'development' ? "http://localhost:3030": "https://quiz-app-back-end.vercel.app/"
 
 const request = async (method, url, data) => {
     const options = {
