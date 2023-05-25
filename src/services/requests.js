@@ -3,7 +3,8 @@ const endpoints = {
     categories: 'categories',
     questions: 'questions',
     register: 'users/register',
-    login: 'users/login'
+    login: 'users/login',
+    guests: 'guests'
 };
 
 export const getCategories = async () => {
@@ -52,5 +53,13 @@ export const login = async ({ email, password}) => {
     return api.post(endpoints.login, {
         email,
         password,
+    })
+}
+
+export const setGuestCredentials = async({name, grade, classValue}) =>{
+    return api.post(`${endpoints.guests}/setGuestCredentials`, {
+        name,
+        grade,
+        class: classValue
     })
 }

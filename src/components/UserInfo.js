@@ -1,12 +1,15 @@
 import { Box, Button, Center, Divider, Flex, Heading, Input, Select, Stack } from '@chakra-ui/react';
+import {setGuestCredentials} from "../services/requests"
 
 export const UserInfo = ({ userInfo, setUserInfo, setIsUserInfoGiven }) => {
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (userInfo.name.trim() === "" || userInfo.grade.trim() === "" || userInfo.class.trim() === "") {
             // error
         } else {
             setIsUserInfoGiven(true)
+
+            const data = await setGuestCredentials({name: userInfo.name, grade: userInfo.grade, classValue: userInfo.class})
         }
     }
 
