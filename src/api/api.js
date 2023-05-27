@@ -12,6 +12,14 @@ const request = async (method, url, data) => {
         options.body = JSON.stringify(data);
     }
 
+
+    //Mitko`s work here (delete if mad) - sets the auth token in the headers if there is any
+    if(localStorage.getItem('access_info') !== undefined){
+        const authData = JSON.parse(localStorage.getItem('access_info'))
+        const token = authData.token
+        options.headers["User-Authorization"] = token
+    }
+
     try {
         const res = await fetch(host + url, options);
         const data = await res.json();
