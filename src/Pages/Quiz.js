@@ -79,7 +79,7 @@ export const QuizBox = () => {
     setIncorrectAnswers(questions.length - numCorrectAnswers);
 
 
-    //MITYOS WORK - delete if mad
+    //MITYOS WORK -- delete if mad
     const fetchedResult = await postResults(id, correctAnswers, questions)
     console.log(fetchedResult)
 
