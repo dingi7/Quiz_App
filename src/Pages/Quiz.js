@@ -71,6 +71,8 @@ export const QuizBox = () => {
     }
   };
 
+
+  /*      KAMENS VERSION DONT DELETE
   const handleTestFinish = async() => {
     const numCorrectAnswers = questions.filter(
       (q, i) => parseInt(q.correctAnswer) === answers[i]
@@ -83,6 +85,39 @@ export const QuizBox = () => {
     const fetchedResult = await postResults(id, correctAnswers, questions)
     console.log(fetchedResult)
 
+    setIsTestFinished(true);
+  };
+  */
+
+  //MITYOS VERSION 
+
+  const handleTestFinish = async () => {
+    const numCorrectAnswers = questions.filter(
+      (q, i) => parseInt(q.correctAnswer) === answers[i]
+    ).length;
+    setCorrectAnswers(numCorrectAnswers);
+    setIncorrectAnswers(questions.length - numCorrectAnswers);
+  
+    const requestBody = questions.map((question, i) => ({
+      question: question._id,
+      answer: question.answers[answers[i]].text,
+      isCorrect: parseInt(question.correctAnswer) === answers[i]
+    }));
+  
+    const submission = {
+      categoryId: id,
+      correctAnswers: numCorrectAnswers,
+      questions: requestBody
+    };
+  
+    // Make the API request with the submission body
+    try {
+      const response = await postResults(submission);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  
     setIsTestFinished(true);
   };
 
