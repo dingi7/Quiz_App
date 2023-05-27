@@ -71,7 +71,7 @@ export const QuizBox = () => {
     }
   };
 
-  const handleTestFinish = () => {
+  const handleTestFinish = async() => {
     const numCorrectAnswers = questions.filter(
       (q, i) => parseInt(q.correctAnswer) === answers[i]
     ).length;
