@@ -65,10 +65,10 @@ export const setGuestCredentials = async({name, grade, classValue}) =>{
     })
 }
 
-export const postResults = async(categoryId, correctAnswers, questions) => {
+export const postResults = async(submission) => {
     return api.post(endpoints.results, {
-        categoryId,
-        correctAnswers,
-        questions
+        categoryId: submission.categoryId,
+        correctAnswers: submission.correctAnswers,
+        questions: submission.questions
     })
 }
