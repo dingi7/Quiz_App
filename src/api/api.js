@@ -14,8 +14,8 @@ const request = async (method, url, data) => {
 
 
     //Mitko`s work here (delete if mad) - sets the auth token in the headers if there is any
-    if(localStorage.getItem('access_info') !== undefined){
-        const authData = JSON.parse(localStorage.getItem('access_info'))
+    if(localStorage.access_info){
+        const authData = JSON.parse(localStorage.access_info)
         const token = authData.token
         options.headers["User-Authorization"] = token
     }
