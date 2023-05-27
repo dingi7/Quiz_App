@@ -17,6 +17,9 @@ const request = async (method, url, data) => {
     if(localStorage.access_info){
         const authData = JSON.parse(localStorage.access_info)
         const token = authData.token
+        if(token == undefined){
+            return
+        }
         options.headers["User-Authorization"] = token
     }
 
