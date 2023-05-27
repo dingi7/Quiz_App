@@ -14,7 +14,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 //services
-import { getQuestionsByCategory } from '../services/requests';
+import { getQuestionsByCategory, postResults } from '../services/requests';
 import { Results } from '../components/Results';
 import { UserInfo } from '../components/UserInfo';
 import { AuthContext } from '../contexts/AuthContext';
@@ -77,6 +77,12 @@ export const QuizBox = () => {
     ).length;
     setCorrectAnswers(numCorrectAnswers);
     setIncorrectAnswers(questions.length - numCorrectAnswers);
+
+
+    //MITYOS WORK - delete if mad
+    const fetchedResult = await postResults(id, correctAnswers, questions)
+    console.log(fetchedResult)
+
     setIsTestFinished(true);
   };
 

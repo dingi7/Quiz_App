@@ -4,7 +4,8 @@ const endpoints = {
     questions: 'questions',
     register: 'users/register',
     login: 'users/login',
-    guests: 'guests'
+    guests: 'guests',
+    results: 'results'
 };
 
 export const getCategories = async () => {
@@ -61,5 +62,13 @@ export const setGuestCredentials = async({name, grade, classValue}) =>{
         name,
         grade,
         class: classValue
+    })
+}
+
+export const postResults = async(categoryId, correctAnswers, questions) => {
+    return api.post(endpoints.results, {
+        categoryId,
+        correctAnswers,
+        questions
     })
 }
