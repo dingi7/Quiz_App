@@ -41,6 +41,9 @@ export const QuizBox = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
 
+
+  const [quizResults, setQuizResults] = useState([]);
+
   useEffect(() => {
     setCorrectAnswers(0);
 
@@ -61,7 +64,7 @@ export const QuizBox = () => {
     }
   }, [id, setCorrectAnswers, accessData]);
 
-  const handleNextQuestions = () => {
+  /*const handleNextQuestions = () => {
     if (currentQuestion === questions.length - 1) {
       handleTestFinish();
     } else {
@@ -70,6 +73,22 @@ export const QuizBox = () => {
       setValue('');
     }
   };
+  */
+
+  const handleNextQuestions = () => {
+    if (currentQuestion === questions.length - 1) {
+      handleTestFinish();
+    } else {
+      setCurrentQuestion(currentQuestion + 1);
+      setAnswers(state => {
+        const updatedAnswers = [...state];
+        updatedAnswers[currentQuestion] = parseInt(currentAnswer);
+        return updatedAnswers;
+      });
+      setValue('');
+    }
+  };
+  
 
 
   /*      KAMENS VERSION DONT DELETE
@@ -91,23 +110,34 @@ export const QuizBox = () => {
 
   //MITYOS VERSION 
 
+
   const handleTestFinish = async () => {
+    if (questions.length === 0) {
+      // Handle the case when questions are not available
+      return;
+    }
+  
     const numCorrectAnswers = questions.filter(
       (q, i) => parseInt(q.correctAnswer) === answers[i]
     ).length;
     setCorrectAnswers(numCorrectAnswers);
     setIncorrectAnswers(questions.length - numCorrectAnswers);
   
-    const requestBody = questions.map((question, i) => ({
-      question: question._id,
-      answer: question.answers[answers[i]].text,
-      isCorrect: parseInt(question.correctAnswer) === answers[i]
-    }));
+    const newQuizResults = questions.map((question, i) => {
+      const answer = question.answers[answers[i]] ? question.answers[answers[i]].text : '';
+  
+      return {
+        question: question._id,
+        answer,
+      };
+    });
+  
+    setQuizResults(newQuizResults);
   
     const submission = {
       categoryId: id,
       correctAnswers: numCorrectAnswers,
-      questions: requestBody
+      questions: newQuizResults, // Use the updated quizResults state
     };
   
     // Make the API request with the submission body
@@ -120,6 +150,11 @@ export const QuizBox = () => {
   
     setIsTestFinished(true);
   };
+  
+  
+  
+  
+  
 
   const onAnswerChange = e => {
     setCurrentAnswer(e.target.value);
