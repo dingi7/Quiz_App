@@ -33,10 +33,6 @@ export const WelcomePage = () => {
     navigate('/auth')
   }
 
-  useEffect(() => {
-    console.log(accessData || "nothing yet");
-  }, [accessData])
-
   return (
     <Center h="80vh">
       <Flex flexDirection="column" alignItems="center" gap={6}>

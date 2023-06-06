@@ -127,6 +127,10 @@ export const QuizBox = () => {
       categoryId: id,
       correctAnswers: numCorrectAnswers,
       questions: newQuizResults, // Use the updated quizResults state
+      guestCredentials: {
+        "firstName": userInfo.name.split(' ')[0],
+        "lastName": userInfo.name.split(' ')[1]
+      }
     };
   
     // Make the API request with the submission body
