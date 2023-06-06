@@ -10,16 +10,20 @@ import {
   Select,
   useToast,
 } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Answer } from '../components/Answer';
 import { createQuestion, getCategories } from '../services/requests';
+import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 export const AddQuestion = () => {
   const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState([{ text: '', id: 0, correct: false }]);
   const [categories, setCategories] = useState([]);
   const [chosenCategory, setChosenCategory] = useState('');
+  const { isAuth } = useContext(AuthContext);
 
   const toast = useToast();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const setInitialCategories = async () => {
@@ -29,8 +33,19 @@ export const AddQuestion = () => {
         setChosenCategory(fetchedCategories[0]._id);
       }
     };
-    setInitialCategories();
-  }, []);
+    if(isAuth){
+    setInitialCategories()
+    }
+    else{
+      navigate('/auth')
+      toast({
+        title: 'Грешка!',
+        description: "За да достъпите страницата трябва да сте влезли в профила си!",
+        status: 'error',
+        duration: 3000,
+      });
+    }
+  }, [toast, isAuth, navigate]);
 
   const handleCategoryChoice = ({ target: { value } }) => {
     setChosenCategory(value);
@@ -135,56 +150,57 @@ export const AddQuestion = () => {
   };
 
   return (
-    <Center h="70vh">
-      <Box
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        w={['100%', '80%', '50%', '30%']}
-        textAlign="center"
-      >
-        <Heading margin="5">Добави нов въпрос</Heading>
-        <Divider />
-        <Stack gap="4" margin="5" alignItems="left">
-          <Input
-            placeholder="Въведете въпроса"
-            value={question}
-            onChange={e => setQuestion(e.target.value)}
-          />
+    isAuth ? (
+      <Center h="70vh">
+        <Box
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          w={['100%', '80%', '50%', '30%']}
+          textAlign="center"
+        >
+          <Heading margin="5">Добави нов въпрос</Heading>
           <Divider />
-          {answers.map(answer => (
-            <Answer
-              key={answer.id}
-              answer={answer}
-              index={answer.id}
-              onAnswerChange={handleAnswerChange}
-              onDeleteAnswer={handleDeleteAnswer}
-              handleAddCorrect={handleAddCorrect}
-              handleRemoveCorrect={handleRemoveCorrect}
+          <Stack gap="4" margin="5" alignItems="left">
+            <Input
+              placeholder="Въведете въпроса"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
             />
-          ))}
-          <Divider />
-          <Heading size="md">Изберете категория</Heading>
-          <Select variant="filled" onChange={handleCategoryChoice}>
-            {categories.map(c => (
-              <>
+            <Divider />
+            {answers.map((answer) => (
+              <Answer
+                key={answer.id}
+                answer={answer}
+                index={answer.id}
+                onAnswerChange={handleAnswerChange}
+                onDeleteAnswer={handleDeleteAnswer}
+                handleAddCorrect={handleAddCorrect}
+                handleRemoveCorrect={handleRemoveCorrect}
+              />
+            ))}
+            <Divider />
+            <Heading size="md">Изберете категория</Heading>
+            <Select variant="filled" onChange={handleCategoryChoice}>
+              {categories.map((c) => (
                 <option value={c._id} key={c._id}>
                   {c.tag} | {c.questionCount} Въпрос/а
                 </option>
-              </>
-            ))}
-          </Select>
-          <Divider />
-          <Flex alignItems="center" justifyContent="space-between">
-            <Button justifySelf="flex-start" onClick={handleAddAnswer}>
-              Добави въпрос
-            </Button>
-            <Button justifySelf="flex-end" onClick={handleSubmit}>
-              Запази
-            </Button>
-          </Flex>
-        </Stack>
-      </Box>
-    </Center>
+              ))}
+            </Select>
+            <Divider />
+            <Flex alignItems="center" justifyContent="space-between">
+              <Button justifySelf="flex-start" onClick={handleAddAnswer}>
+                Добави въпрос
+              </Button>
+              <Button justifySelf="flex-end" onClick={handleSubmit}>
+                Запази
+              </Button>
+            </Flex>
+          </Stack>
+        </Box>
+      </Center>
+    ) : null
+
   );
 };

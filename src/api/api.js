@@ -1,6 +1,6 @@
-//const host = 'https://quiz-app-back-end.vercel.app/'
+const host = 'https://quiz-app-back-end.vercel.app/'
 
-const host = process.env.NODE_ENV === 'development' ? "http://localhost:3030/": "https://quiz-app-back-end.vercel.app/"
+// const host = process.env.NODE_ENV === 'development' ? "http://localhost:3030/": "https://quiz-app-back-end.vercel.app/"
 
 const request = async (method, url, data) => {
     const options = {
@@ -17,7 +17,7 @@ const request = async (method, url, data) => {
     if(localStorage.access_info){
         const authData = JSON.parse(localStorage.access_info)
         const token = authData.token
-        if(token == undefined){
+        if(token === undefined){
             return
         }
         options.headers["User-Authorization"] = token
