@@ -128,8 +128,8 @@ export const QuizBox = () => {
       correctAnswers: numCorrectAnswers,
       questions: newQuizResults, // Use the updated quizResults state
       guestCredentials: {
-        "firstName": userInfo.name.split(' ')[0],
-        "lastName": userInfo.name.split(' ')[1]
+        "firstName": userInfo.name ? userInfo.name.split(' ')[0] : '',
+        "lastName": userInfo.name ? userInfo.name.split(' ')[1] : ''
       }
     };
   
