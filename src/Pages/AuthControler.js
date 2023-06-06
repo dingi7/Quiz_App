@@ -54,7 +54,6 @@ export const AuthControler = () => {
       localStorage.setItem('access_info', JSON.stringify(data));
       navigate('/')
     } catch (err) {
-      console.log(err);
       errorNotification(err.message)
     }
     setLoading(false)
@@ -69,7 +68,6 @@ export const AuthControler = () => {
       localStorage.setItem('access_info', JSON.stringify(data));
       navigate('/')
     } catch (err) {
-      console.log(err);
       errorNotification(err.message)
     }
     setLoading(false)

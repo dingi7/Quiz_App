@@ -41,9 +41,6 @@ export const QuizBox = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
 
-
-  const [quizResults, setQuizResults] = useState([]);
-
   useEffect(() => {
     setCorrectAnswers(0);
 
@@ -112,11 +109,6 @@ export const QuizBox = () => {
 
 
   const handleTestFinish = async () => {
-    if (questions.length === 0) {
-      // Handle the case when questions are not available
-      return;
-    }
-  
     const numCorrectAnswers = questions.filter(
       (q, i) => parseInt(q.correctAnswer) === answers[i]
     ).length;
@@ -125,14 +117,11 @@ export const QuizBox = () => {
   
     const newQuizResults = questions.map((question, i) => {
       const answer = question.answers[answers[i]] ? question.answers[answers[i]].text : '';
-  
       return {
         question: question._id,
         answer,
       };
     });
-  
-    setQuizResults(newQuizResults);
   
     const submission = {
       categoryId: id,

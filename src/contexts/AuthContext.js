@@ -5,7 +5,6 @@ export const AuthContext = createContext();
 export function AuthProvider(props) {
     const [accessData, setAccessData] = useState(null);
     useEffect(() => {
-        console.log('working');
         const storedAccessData = localStorage.getItem('access_info');
         if (storedAccessData) {
             try {

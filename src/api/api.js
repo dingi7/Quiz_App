@@ -5,7 +5,9 @@ const host = 'https://quiz-app-back-end.vercel.app/'
 const request = async (method, url, data) => {
     const options = {
         method,
-        headers: {},
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
     };
     if (data) {
         options.headers['content-type'] = 'application/json';
