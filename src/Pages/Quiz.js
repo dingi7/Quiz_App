@@ -20,7 +20,7 @@ import { UserInfo } from '../components/UserInfo';
 import { AuthContext } from '../contexts/AuthContext';
 
 export const QuizBox = () => {
-  const { accessData  } = useContext(AuthContext);
+  const { accessData } = useContext(AuthContext);
   const { id } = useParams();
 
   const [isUserInfoGiven, setIsUserInfoGiven] = useState(false)
@@ -61,60 +61,28 @@ export const QuizBox = () => {
     }
   }, [id, setCorrectAnswers, accessData]);
 
-  /*const handleNextQuestions = () => {
-    if (currentQuestion === questions.length - 1) {
-      handleTestFinish();
-    } else {
-      setCurrentQuestion(currentQuestion + 1);
-      setAnswers(state => [...state, parseInt(currentAnswer)]);
-      setValue('');
-    }
-  };
-  */
-
   const handleNextQuestions = () => {
     if (currentQuestion === questions.length - 1) {
       handleTestFinish();
     } else {
+      setAnswers(state => [...state, parseInt(currentAnswer)]);
       setCurrentQuestion(currentQuestion + 1);
-      setAnswers(state => {
-        const updatedAnswers = [...state];
-        updatedAnswers[currentQuestion] = parseInt(currentAnswer);
-        return updatedAnswers;
-      });
       setValue('');
     }
   };
-  
-
-
-  /*      KAMENS VERSION DONT DELETE
-  const handleTestFinish = async() => {
-    const numCorrectAnswers = questions.filter(
-      (q, i) => parseInt(q.correctAnswer) === answers[i]
-    ).length;
-    setCorrectAnswers(numCorrectAnswers);
-    setIncorrectAnswers(questions.length - numCorrectAnswers);
-
-
-    //MITYOS WORK -- delete if mad
-    const fetchedResult = await postResults(id, correctAnswers, questions)
-    console.log(fetchedResult)
-
-    setIsTestFinished(true);
-  };
-  */
-
-  //MITYOS VERSION 
-
 
   const handleTestFinish = async () => {
-    const numCorrectAnswers = questions.filter(
+    console.log(questions);
+    console.log(answers);
+    let numCorrectAnswers = questions.filter(
       (q, i) => parseInt(q.correctAnswer) === answers[i]
     ).length;
+    if(parseInt(currentAnswer) === parseInt(questions[answers.length].correctAnswer)){
+      numCorrectAnswers++
+    }
     setCorrectAnswers(numCorrectAnswers);
     setIncorrectAnswers(questions.length - numCorrectAnswers);
-  
+
     const newQuizResults = questions.map((question, i) => {
       const answer = question.answers[answers[i]] ? question.answers[answers[i]].text : '';
       return {
@@ -122,7 +90,7 @@ export const QuizBox = () => {
         answer,
       };
     });
-  
+
     const submission = {
       categoryId: id,
       correctAnswers: numCorrectAnswers,
@@ -132,7 +100,7 @@ export const QuizBox = () => {
         "lastName": userInfo.name ? userInfo.name.split(' ')[1] : ''
       }
     };
-  
+
     // Make the API request with the submission body
     try {
       const response = await postResults(submission);
@@ -140,14 +108,9 @@ export const QuizBox = () => {
     } catch (error) {
       console.log(error);
     }
-  
+
     setIsTestFinished(true);
   };
-  
-  
-  
-  
-  
 
   const onAnswerChange = e => {
     setCurrentAnswer(e.target.value);
