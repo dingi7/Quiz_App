@@ -26,6 +26,11 @@ export const WelcomePage = () => {
     navigate('/auth');
   };
 
+  const handleShowResults = e => {
+    e.preventDefault();
+    navigate('/results');
+  };
+
   const handleLogout = e => {
     setAccessData(null);
     localStorage.removeItem('access_info');
@@ -50,6 +55,11 @@ export const WelcomePage = () => {
         <Box>
           <Button onClick={handleAddCategory} w="200px" justifySelf="center">
             Добавете Категория
+          </Button>
+        </Box>
+        <Box>
+          <Button onClick={handleShowResults} w="200px" justifySelf="center">
+            Вижте резултати
           </Button>
         </Box>
         <Box>

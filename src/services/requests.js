@@ -72,3 +72,7 @@ export const postResults = async(submission) => {
         questions: submission.questions
     })
 }
+
+export const getResults = async() =>{
+    return api.get(endpoints.results)
+}

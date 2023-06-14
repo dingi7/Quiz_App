@@ -14,6 +14,7 @@ import { AddQuestion } from './Pages/AddQuestions';
 import { AddCategory } from './Pages/AddCategories';
 import { SelectCategory } from './Pages/SelectCategory';
 import { AuthControler } from './Pages/AuthControler';
+import { ShowResults } from './Pages/ShowResults';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
             <Route path="/selectCategory" element={<SelectCategory />} />
             <Route path="/quiz/:id" element={<QuizBox />} />
             <Route path="/auth" element={<AuthControler />} />
+            <Route path="/results" element={<ShowResults />} />
           </Routes>
           <footer
             style={{
