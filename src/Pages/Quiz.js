@@ -118,78 +118,89 @@ export const QuizBox = () => {
 
   const currentQuestionData = questions[currentQuestion];
 
-  if (!currentQuestionData) {
-    return null;
-  }
+  const renderQuizContent = () => {
+    if (!isUserInfoGiven) {
+      return (
+        <UserInfo
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+          setIsUserInfoGiven={setIsUserInfoGiven}
+        />
+      );
+    }
 
-  return (
-    <>
-      {!isUserInfoGiven ? (<UserInfo userInfo={userInfo} setUserInfo={setUserInfo} setIsUserInfoGiven={setIsUserInfoGiven}></UserInfo>) : (<>
-        {isTestFinished ? (
-          <Results
-            correctAnswers={correctAnswers}
-            incorrectAnswers={incorrectAnswers}
-            totalAnswers={questions.length}
-          />
-        ) : (
-          <Center h="70vh">
-            <Box
-              justifySelf="center"
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              w={['90%', '70%', '50%', '30%']}
-              textAlign="center"
-            >
-              <Progress value={(currentQuestion / questions.length) * 100} />
-              <Stack justifySelf="center" direction="column">
-                <Text marginTop="2" justifySelf="center">
-                  {currentQuestionData.question}
-                </Text>
-                <Divider />
-                <RadioGroup onChange={setValue} value={value} name="quiz-answer">
-                  <Stack marginLeft="5" justifyContent="center">
-                    {currentQuestionData.answers.map((answer, index) => (
-                      <Radio
-                        key={answer.id}
-                        value={`${index}`}
-                        onChange={onAnswerChange}
-                      >
-                        {answer.text}
-                      </Radio>
-                    ))}
-                  </Stack>
-                </RadioGroup>
-                <Divider />
-                <Stack marginLeft="5" direction="row">
-                  {currentQuestion === questions.length - 1 ? (
-                    <Button
-                      onClick={handleNextQuestions}
-                      marginLeft="5"
-                      marginRight="5"
-                      marginBottom="2"
-                      w="100%"
-                    >
-                      Завърши теста
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={handleNextQuestions}
-                      marginLeft="5"
-                      marginRight="5"
-                      marginBottom="2"
-                      w="100%"
-                    >
-                      Нататък
-                    </Button>
-                  )}
-                </Stack>
+    if (isTestFinished) {
+      return (
+        <Results
+          correctAnswers={correctAnswers}
+          incorrectAnswers={incorrectAnswers}
+          totalAnswers={questions.length}
+        />
+      );
+    }
+
+    if (!currentQuestionData) {
+      return null; // Guard clause to handle undefined currentQuestionData
+    }
+
+    return (
+      <Center h="70vh">
+        <Box
+          justifySelf="center"
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          w={['90%', '70%', '50%', '30%']}
+          textAlign="center"
+        >
+          <Progress value={(currentQuestion / questions.length) * 100} />
+          <Stack justifySelf="center" direction="column">
+            <Text marginTop="2" justifySelf="center">
+              {currentQuestionData.question}
+            </Text>
+            <Divider />
+            <RadioGroup onChange={setValue} value={value} name="quiz-answer">
+              <Stack marginLeft="5" justifyContent="center">
+                {currentQuestionData.answers.map((answer, index) => (
+                  <Radio
+                    key={answer.id}
+                    value={`${index}`}
+                    onChange={onAnswerChange}
+                  >
+                    {answer.text}
+                  </Radio>
+                ))}
               </Stack>
-            </Box>
-          </Center>
-        )}
-      </>)}
+            </RadioGroup>
+            <Divider />
+            <Stack marginLeft="5" direction="row">
+              {currentQuestion === questions.length - 1 ? (
+                <Button
+                  onClick={handleNextQuestions}
+                  marginLeft="5"
+                  marginRight="5"
+                  marginBottom="2"
+                  w="100%"
+                >
+                  Завърши теста
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleNextQuestions}
+                  marginLeft="5"
+                  marginRight="5"
+                  marginBottom="2"
+                  w="100%"
+                >
+                  Нататък
+                </Button>
+              )}
+            </Stack>
+          </Stack>
+        </Box>
+      </Center>
+    );
+  };
 
-    </>
-  );
+  return <>{renderQuizContent()}</>;
 };
