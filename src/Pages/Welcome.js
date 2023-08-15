@@ -1,10 +1,10 @@
 import { Button, Center, Flex, Box, Heading } from '@chakra-ui/react';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
 export const WelcomePage = () => {
-  const { accessData, isAuth, setAccessData } = useContext(AuthContext);
+  const { isAuth, setAccessData } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleQuizStart = e => {
     e.preventDefault();
